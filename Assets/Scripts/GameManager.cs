@@ -23,7 +23,10 @@ public class GameManager : MonoBehaviour
     {
         money_display = GetComponentInChildren<Money>();
         ball_fakir = GetComponentInChildren<Ball>();
+        
         Application.targetFrameRate = 16;
+        // Time.fixedDeltaTime = 0.1f; // low frequency for physics CASSE LA PHYSIQUE
+        // IDEAL => Object qui se simule parfaitement => la balle affichée prend une pose toute les tant
     }
 
     // Update is called once per frame
