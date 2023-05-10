@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public int player_money = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,5 +17,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public int get_money(){
+        return player_money;
     }
 }
