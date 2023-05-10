@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     private Ball ball_fakir;
     private Money money_display;
 
+    // public List<GameObject> list_of_games; TODO COmment le gérer ?
+
+    private int active_game = 0;
+
+
+
 
     public int player_money = 100;
     // Start is called before the first frame update
@@ -24,7 +30,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if(ball_fakir.has_win){
-            Debug.Log("win "+ ball_fakir.win_value);
             ball_fakir.has_win = false;
             player_money+=ball_fakir.win_value;
         }
@@ -35,4 +40,8 @@ public class GameManager : MonoBehaviour
     public int get_money(){
         return player_money;
     }
+
+    // public void run_active_game(){ TODO possible ?
+    //     list_of_games[active_game].GetComponent
+    // }
 }
