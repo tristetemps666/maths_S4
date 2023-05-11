@@ -18,9 +18,12 @@ public class Lancer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
+    private void LateUpdate() {
+                if(is_launched == true) is_launched = false;
+
+    }
     void OnMouseOver(){
         if(Input.GetMouseButtonDown(0)){
             button_text.color = Color.black;

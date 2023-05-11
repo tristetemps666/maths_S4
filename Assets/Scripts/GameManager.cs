@@ -21,14 +21,20 @@ public class GameManager : MonoBehaviour
     public bool has_choose_strat_1 = false;
     private bool has_choose_strat_2 = false;
 
+
+    public GameObject Strat_1;
+    private Lancer strat_1_script;
     public List<GameObject> list_games;
     private List<GameStrat> list_strat_one = new List<GameStrat>();
+
+
 
 
     public int player_money = 100;
     // Start is called before the first frame update
     void Start()
     {
+        strat_1_script = Strat_1.GetComponent<Lancer>();
         money_display = GetComponentInChildren<Money>();
         ball_fakir = GetComponentInChildren<Ball>();
         
@@ -47,6 +53,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        has_choose_strat_1 = strat_1_script.is_launched;
+
         Debug.Log(list_strat_one.Count);
 
         if(ball_fakir.has_win){
@@ -91,7 +100,6 @@ public class GameManager : MonoBehaviour
 
     GameStrat start_one_fakir = (game) => {
         Fakir fakir = game.GetComponent<Fakir>();
-        if(fakir=null) return false;
         fakir.start_one();
         return true;
     };

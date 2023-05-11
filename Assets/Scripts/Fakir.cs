@@ -41,6 +41,7 @@ public class Fakir : MonoBehaviour
 
 
     public void start_one(){
+        if(is_running) return;
         list_rewards_text.ForEach(txt => txt.text = (int.Parse(txt.text)*strat_one_multiplier).ToString());
     }
 }
