@@ -66,7 +66,8 @@ public class GameManager : MonoBehaviour
         money_display.set_money(player_money);
 
 
-        if (has_choose_strat_1 == true){
+        if (has_choose_strat_1 == true && player_money >= 50){
+            player_money-= 50;
             has_choose_strat_1 = false;
             var strat = list_strat_one[active_game];
             if (strat == null) Debug.Log("cassé");
