@@ -44,14 +44,12 @@ public class Ball : MonoBehaviour
     }
 
     private void OnMouseDown() {
-        Debug.Log("je drag");        
         diff = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position;
     }
     private void OnMouseOver() {
         if (Input.GetMouseButton(0)){
             is_holding_ball = true;
         }
-        Debug.Log("je touche la balle");
     }
 
 

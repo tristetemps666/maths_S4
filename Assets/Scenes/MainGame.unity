@@ -417,6 +417,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f170d953c660d45811e49f43ce5f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  has_choose_strat_1: 1
+  list_games:
+  - {fileID: 1113174887}
   player_money: 100
 --- !u!114 &158417742
 MonoBehaviour:
@@ -1444,6 +1447,11 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 1051856249}
   m_maskType: 0
+--- !u!1 &1113174887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1923641164077001980, guid: 711aac1d04aac844ab332a0548366bbc, type: 3}
+  m_PrefabInstance: {fileID: 1564389415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1120059616
 GameObject:
   m_ObjectHideFlags: 0
