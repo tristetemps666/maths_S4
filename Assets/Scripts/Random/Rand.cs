@@ -7,7 +7,7 @@ namespace MyRand{
     class myRand{
         public static float rand_0_1(){
             Random r = new Random();
-            return r.Next()/Int32.MaxValue;
+            return (float)r.NextDouble();
         }
 
 
