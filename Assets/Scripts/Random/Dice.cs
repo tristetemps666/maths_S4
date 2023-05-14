@@ -6,6 +6,7 @@ using MyRand;
 
 
 
+
 namespace DICE
 {
 
@@ -13,27 +14,17 @@ namespace DICE
         public DiceStats(int a = 0){
             roll_number = a;
             amount_foreach_face = new List<int>(){0,0,0,0,0,0};
-            most_frequent_face = 0;
+            most_frequent_face = new List<int>(){0};
             average_number = 0f;
         }
 
 
         public int roll_number;
         
-        public int most_frequent_face;
+        public List<int> most_frequent_face;
 
         public float average_number;
         public List<int> amount_foreach_face; // number of roll that give the face
-
-        public string string_amount_foreach(){
-            if(amount_foreach_face == null) return "null";
-            string a= "{";
-            for(int i=0 ; i<amount_foreach_face.Count-1; i++){
-                a += amount_foreach_face[i].ToString() + ",";
-            }
-            return a + amount_foreach_face[amount_foreach_face.Count-1] +"}";
-        }
-
     }
     
     public class Dice {
@@ -100,6 +91,30 @@ namespace DICE
             stats.average_number = (stats.average_number*stats.roll_number+actual_number)/(stats.roll_number+1); // moyenne entre lancienne moyenne et le nouveau lancé
             stats.roll_number++;
             stats.amount_foreach_face[actual_id]+=1;
+            stats.most_frequent_face = get_most_frequent_face();
+        }
+
+
+        private List<int> get_most_frequent_id(){
+            List<int> list_max = new List<int>(){0};
+
+            for(int i = 0; i<faces_count(); i++){
+                int actual_max = stats.amount_foreach_face[list_max[0]];
+                int candidate_max_i = stats.amount_foreach_face[i];
+                if(candidate_max_i>actual_max){
+                    list_max = new List<int>(){i};
+                }else if (candidate_max_i==actual_max){
+                    list_max.Add(i);
+                }
+            }
+            return list_max;
+        }
+
+
+        private List<int> get_most_frequent_face(){
+            List<int> res = new List<int>();
+            get_most_frequent_id().ForEach(a=>res.Add(faces_number[a]));
+            return res;
         }
 
         public DiceStats get_stats(){
