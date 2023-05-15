@@ -79,14 +79,14 @@ public class GameManager : MonoBehaviour
 
 
     private void setup_all_strats(){
-        GameStrat start_one_fakir = (game) => {
+        GameStrat strat_one_fakir = (game) => {
             Fakir fakir = game.GetComponent<Fakir>();
             if(fakir==null) return false;
-            fakir.start_one();
+            fakir.strat_one();
             return true;
         };
 
-        list_strat_one.Add(start_one_fakir);
+        list_strat_one.Add(strat_one_fakir);
     }
 
     public int get_money(){
@@ -99,9 +99,9 @@ public class GameManager : MonoBehaviour
     // }
 
 
-    GameStrat start_one_fakir = (game) => {
+    GameStrat strat_one_fakir = (game) => {
         Fakir fakir = game.GetComponent<Fakir>();
-        fakir.start_one();
+        fakir.strat_one();
         return true;
     };
 
