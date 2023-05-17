@@ -17,9 +17,9 @@ public class Ball : MonoBehaviour
 
     public float delta_ball_start = 5.4f;
 
+
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -37,7 +37,7 @@ public class Ball : MonoBehaviour
     
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.tag == "ScoreFakir" && !has_win){
+        if(other.tag == "ScoreFakir" && !has_win){ // && Vector3.Magnitude(GetComponent<Rigidbody2D>().velocity) <= 0.1f
             win_value = int.Parse(other.gameObject.GetComponent<TextMeshPro>().text);
             has_win = true;
         }
