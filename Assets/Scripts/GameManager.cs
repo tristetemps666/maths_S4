@@ -66,7 +66,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("2 activation : " + strat_2_script.is_activated);
 
         has_choose_strat_1 = strat_1_script.is_launched;
         has_choose_strat_2 = strat_2_script.is_launched;
@@ -81,10 +80,10 @@ public class GameManager : MonoBehaviour
         update_list_is_starting();
         update_list_is_finished();
 
-        // if(list_is_finished_games[active_game]){
-        //     strat_1_script.is_activated = false;
-        //     strat_2_script.is_activated = false;
-        // }
+        if(list_is_finished_games[active_game]){
+            strat_1_script.is_activated = false;
+            strat_2_script.is_activated = false;
+        }
 
 
         money_display.set_money(player_money);
@@ -107,7 +106,6 @@ private void handle_strat_one(){
 
         strat(list_games[active_game]);
     } else if(!strat_1_used){
-        Debug.Log("caca 1");
         strat_1_script.is_activated = false;
     }
 }
@@ -125,7 +123,6 @@ private void handle_strat_two(){
         strat2(list_games[active_game]);
     } 
     else if(!strat_2_used){
-        Debug.Log("caca 2");
         strat_2_script.is_activated = false;
     }
 }
@@ -172,11 +169,11 @@ private void handle_strat_two(){
     // }
 
     void update_list_is_starting(){
-        list_is_starting_games[0] = !list_games[0].GetComponent<Fakir>().is_running && !list_games[0].GetComponent<Fakir>().is_finished;
+        list_is_starting_games[0] = !list_games[0].GetComponent<Fakir>().is_running && !list_games[0].GetComponent<Fakir>().has_fallen;
     }
 
     void update_list_is_finished(){
-        list_is_finished_games[0] = list_games[0].GetComponent<Fakir>().is_finished;
+        list_is_finished_games[0] = list_games[0].GetComponent<Fakir>().is_over;
     }
 
 
