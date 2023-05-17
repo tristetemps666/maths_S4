@@ -36,7 +36,8 @@ public class GameManager : MonoBehaviour
 
     public List<bool> list_is_starting_games = new List<bool>();
 
-    public List<bool> list_is_finished_games = new List<bool>();
+    public List<bool> list_is_finished_games = new List<bool>(); // if the game is finished but not fully over (can be remade sometimes)
+   
 
 
 
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("2 activation : " + strat_2_script.is_activated);
 
         has_choose_strat_1 = strat_1_script.is_launched;
         has_choose_strat_2 = strat_2_script.is_launched;
@@ -73,17 +75,17 @@ public class GameManager : MonoBehaviour
         if(ball_fakir.has_win){
             ball_fakir.has_win = false;
             player_money+=ball_fakir.win_value;
+            player_money = Mathf.Max(0, player_money);
         }
 
         update_list_is_starting();
         update_list_is_finished();
 
-        if(list_is_finished_games[active_game]){
-            strat_1_script.is_activated = false;
-            strat_2_script.is_activated = false;
-        }
+        // if(list_is_finished_games[active_game]){
+        //     strat_1_script.is_activated = false;
+        //     strat_2_script.is_activated = false;
+        // }
 
-        Debug.Log("fakir is starting : " + list_is_starting_games[0]);
 
         money_display.set_money(player_money);
 
@@ -105,6 +107,7 @@ private void handle_strat_one(){
 
         strat(list_games[active_game]);
     } else if(!strat_1_used){
+        Debug.Log("caca 1");
         strat_1_script.is_activated = false;
     }
 }
@@ -113,7 +116,6 @@ private void handle_strat_one(){
 private void handle_strat_two(){
     bool is_strat_2_activated = has_choose_strat_2 == true && player_money >= 60 && list_is_starting_games[active_game] && !strat_2_used;
     if (is_strat_2_activated){
-        strat_2_script.is_activated = true;
         player_money-=60;
         has_choose_strat_2 = false;
         var strat2 = list_strat_two[active_game];
@@ -123,6 +125,7 @@ private void handle_strat_two(){
         strat2(list_games[active_game]);
     } 
     else if(!strat_2_used){
+        Debug.Log("caca 2");
         strat_2_script.is_activated = false;
     }
 }

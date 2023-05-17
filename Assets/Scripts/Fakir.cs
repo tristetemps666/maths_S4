@@ -26,6 +26,9 @@ public class Fakir : MonoBehaviour
     public bool has_win = false;
     public bool is_finished = false;
 
+    bool invoked = false;
+
+
 
 
     // Start is called before the first frame update
@@ -42,7 +45,6 @@ public class Fakir : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(has_win);
         is_running = launch_button.is_launched && number_of_ball>0 ? true : is_running;
         if (launch_button.is_launched) number_of_ball--;
         
@@ -51,7 +53,11 @@ public class Fakir : MonoBehaviour
 
         if (has_win) is_finished = true;
         
-        Invoke("setup_one_more_lanch",10f);
+        
+        if(!invoked  && is_finished && number_of_ball >0){
+            Invoke("setup_one_more_lanch",2f);
+            invoked = true;
+        }
         
         Ball.GetComponent<Rigidbody2D>().bodyType = is_running ? UnityEngine.RigidbodyType2D.Dynamic : UnityEngine.RigidbodyType2D.Static;
     }
@@ -73,12 +79,10 @@ public class Fakir : MonoBehaviour
 
 
     void setup_one_more_lanch(){
-        if(is_finished && number_of_ball >0){
             Debug.Log("encore !!!");
             is_running = false;
             Ball.transform.position = ball_start_position;
             is_finished = false;
-        }
     }
 
 }

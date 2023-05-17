@@ -419,8 +419,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   has_choose_strat_1: 1
   Strat_1: {fileID: 978223762}
+  Strat_2: {fileID: 210142919}
   list_games:
   - {fileID: 1113174887}
+  list_is_starting_games: 
+  list_is_finished_games: 
   player_money: 100
 --- !u!114 &158417742
 MonoBehaviour:
@@ -583,6 +586,8 @@ MonoBehaviour:
   button_text: {fileID: 1026219214}
   bgrd_button: {fileID: 2072367309}
   is_launched: 0
+  toggle_mode: 1
+  is_activated: 0
 --- !u!212 &210142923
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -848,6 +853,8 @@ MonoBehaviour:
   button_text: {fileID: 336650891}
   bgrd_button: {fileID: 698446433}
   is_launched: 0
+  toggle_mode: 0
+  is_activated: 0
 --- !u!1 &244866724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,6 +1541,8 @@ MonoBehaviour:
   button_text: {fileID: 1980931103}
   bgrd_button: {fileID: 212401919}
   is_launched: 0
+  toggle_mode: 1
+  is_activated: 0
 --- !u!212 &978223766
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2232,10 +2241,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8053366179144125276, guid: 711aac1d04aac844ab332a0548366bbc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.69
+      objectReference: {fileID: 0}
     - target: {fileID: 8817350617136843013, guid: 711aac1d04aac844ab332a0548366bbc, type: 3}
       propertyPath: launch_button
       value: 
       objectReference: {fileID: 219404348}
+    - target: {fileID: 8817350617136843013, guid: 711aac1d04aac844ab332a0548366bbc, type: 3}
+      propertyPath: number_of_ball
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 711aac1d04aac844ab332a0548366bbc, type: 3}
 --- !u!1 &1869329148
