@@ -64,6 +64,8 @@ public class Fakir : MonoBehaviour
             invoked = true;
         }
 
+        if (is_over) is_running =false;
+
 
         
         Ball.GetComponent<Rigidbody2D>().bodyType = is_running ? UnityEngine.RigidbodyType2D.Dynamic : UnityEngine.RigidbodyType2D.Static;

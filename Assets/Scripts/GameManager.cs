@@ -38,11 +38,12 @@ public class GameManager : MonoBehaviour
 
     public List<bool> list_is_finished_games = new List<bool>(); // if the game is finished but not fully over (can be remade sometimes)
    
-
-
-
-
     public int player_money = 100;
+
+    public List<GameObject> list_buttons = new List<GameObject>();
+
+
+    private Carrousel carrousel;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +51,8 @@ public class GameManager : MonoBehaviour
         strat_2_script = Strat_2.GetComponent<Lancer>();
         money_display = GetComponentInChildren<Money>();
         ball_fakir = GetComponentInChildren<Ball>();
-        
+        carrousel = GetComponentInChildren<Carrousel>();
+
         Application.targetFrameRate = 16;
         // Time.fixedDeltaTime = 0.1f; // low frequency for physics CASSE LA PHYSIQUE
         // IDEAL => Object qui se simule parfaitement => la balle affichée prend une pose toute les tant
@@ -67,33 +69,56 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        has_choose_strat_1 = strat_1_script.is_launched;
-        has_choose_strat_2 = strat_2_script.is_launched;
+        switch(carrousel.state){
+            case carroussel_state.ready_to_play:
+                enable_buttons();
+
+                update_list_is_starting();
+                update_list_is_finished();
+
+                if(list_is_finished_games[active_game]){
+                    strat_1_script.is_activated = false;
+                    strat_2_script.is_activated = false;
+                }
+
+                handle_win();
+
+                money_display.set_money(player_money);
+
+                handle_strat_one();
+                handle_strat_two();
+
+                has_choose_strat_1 = strat_1_script.is_launched;
+                has_choose_strat_2 = strat_2_script.is_launched;
+
+                break;
 
 
-        if(ball_fakir.has_win){
-            ball_fakir.has_win = false;
-            player_money+=ball_fakir.win_value;
-            player_money = Mathf.Max(0, player_money);
+            case carroussel_state.is_rolling:
+                disable_buttons();                
+
+                break;
+
+            case carroussel_state.is_paused:
+                disable_buttons();
+                break;
         }
 
-        update_list_is_starting();
-        update_list_is_finished();
-
-        if(list_is_finished_games[active_game]){
-            strat_1_script.is_activated = false;
-            strat_2_script.is_activated = false;
-        }
 
 
-        money_display.set_money(player_money);
-
-        
 
 
-        handle_strat_one();
-        handle_strat_two();
     }
+
+
+
+private void handle_win(){
+    if(ball_fakir.has_win){
+        ball_fakir.has_win = false;
+        player_money+=ball_fakir.win_value;
+        player_money = Mathf.Max(0, player_money);
+    }
+}
 
 private void handle_strat_one(){
     bool is_strat_1_activated = has_choose_strat_1 == true && player_money >= 50 && list_is_starting_games[active_game] && !strat_1_used;
@@ -110,6 +135,18 @@ private void handle_strat_one(){
     }
 }
 
+
+private void disable_buttons(){
+    foreach(GameObject button in list_buttons){
+        button.SetActive(false);
+    }
+}
+
+private void enable_buttons(){
+    foreach(GameObject button in list_buttons){
+        button.SetActive(true);
+    }
+}
 
 private void handle_strat_two(){
     bool is_strat_2_activated = has_choose_strat_2 == true && player_money >= 60 && list_is_starting_games[active_game] && !strat_2_used;
