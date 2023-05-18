@@ -417,10 +417,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f170d953c660d45811e49f43ce5f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active_game: 0
   has_choose_strat_1: 1
   Strat_1: {fileID: 978223762}
   Strat_2: {fileID: 210142919}
   list_games:
+  - {fileID: 387141085}
   - {fileID: 1113174887}
   list_is_starting_games: 
   list_is_finished_games: 
@@ -984,6 +986,8 @@ MonoBehaviour:
   active_game_transform: {fileID: 1315497270}
   left_out_transform: {fileID: 175386232}
   right_out_transform: {fileID: 1686487705}
+  speed_to_roll: 3
+  next_game: 0
 --- !u!212 &244866727
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1208,6 +1212,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &387141085 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1923641164077001980, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
+  m_PrefabInstance: {fileID: 449648217}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &390561875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,6 +1326,14 @@ PrefabInstance:
     - target: {fileID: 1923641164077001980, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
       propertyPath: m_Name
       value: Dice
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245205104489824876, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323062157680830059, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5311892645399530321, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
       propertyPath: m_RootOrder
@@ -2688,8 +2705,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1315497269}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.25, y: 0.9, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 3}
+  m_LocalPosition: {x: 0.25, y: 0.9, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 2.9999998}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 244866725}

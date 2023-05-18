@@ -16,13 +16,13 @@ public class GameManager : MonoBehaviour
 
     // public List<GameObject> list_of_games; TODO COmment le gérer ?
 
-    private int active_game = 0;
+    public int active_game = 0;
 
     public bool has_choose_strat_1 = false;
-    private bool has_choose_strat_2 = false;
+    public bool has_choose_strat_2 = false;
 
-    private bool strat_1_used = false;
-    private bool strat_2_used = false;
+    public bool strat_1_used = false;
+    public bool strat_2_used = false;
 
 
     public GameObject Strat_1;
@@ -102,6 +102,13 @@ public class GameManager : MonoBehaviour
             case carroussel_state.is_paused:
                 disable_buttons();
                 break;
+
+            case carroussel_state.finished_to_roll:
+                    carrousel.state = carroussel_state.ready_to_play;
+                    has_choose_strat_1 = false;
+                    has_choose_strat_2 = false;
+                    active_game = carrousel.next_game;
+                break;
         }
 
 
@@ -123,6 +130,8 @@ private void handle_win(){
 private void handle_strat_one(){
     bool is_strat_1_activated = has_choose_strat_1 == true && player_money >= 50 && list_is_starting_games[active_game] && !strat_1_used;
     if (is_strat_1_activated){
+        strat_1_script.is_activated = true;
+
         player_money-= 50;
         has_choose_strat_1 = false;
         var strat = list_strat_one[active_game];
@@ -151,6 +160,7 @@ private void enable_buttons(){
 private void handle_strat_two(){
     bool is_strat_2_activated = has_choose_strat_2 == true && player_money >= 60 && list_is_starting_games[active_game] && !strat_2_used;
     if (is_strat_2_activated){
+        strat_2_script.is_activated = true;
         player_money-=60;
         has_choose_strat_2 = false;
         var strat2 = list_strat_two[active_game];
@@ -170,10 +180,19 @@ private void handle_strat_two(){
         setup_all_strats_two();
         list_is_starting_games.Add(false);
         list_is_finished_games.Add(false);
+
+        list_is_starting_games.Add(false);
+        list_is_finished_games.Add(false);
     }
 
 
     private void setup_all_strats_one(){
+        GameStrat strat_one_dice = (game) =>{
+
+            return true;
+        };
+        list_strat_one.Add(strat_one_dice);
+        
         GameStrat strat_one_fakir = (game) => {
             Fakir fakir = game.GetComponent<Fakir>();
             if(fakir==null) return false;
@@ -185,6 +204,12 @@ private void handle_strat_two(){
 
 
     private void setup_all_strats_two(){
+        GameStrat strat_two_dice = (game) =>{
+            return true;
+        };
+        list_strat_two.Add(strat_two_dice);
+
+
         GameStrat strat_two_fakir = (game) => {
             Fakir fakir = game.GetComponent<Fakir>();
             if(fakir==null) return false;
@@ -206,11 +231,11 @@ private void handle_strat_two(){
     // }
 
     void update_list_is_starting(){
-        list_is_starting_games[0] = !list_games[0].GetComponent<Fakir>().is_running && !list_games[0].GetComponent<Fakir>().has_fallen;
+        list_is_starting_games[1] = !list_games[1].GetComponent<Fakir>().is_running && !list_games[1].GetComponent<Fakir>().has_fallen;
     }
 
     void update_list_is_finished(){
-        list_is_finished_games[0] = list_games[0].GetComponent<Fakir>().is_over;
+        list_is_finished_games[1] = list_games[1].GetComponent<Fakir>().is_over;
     }
 
 
