@@ -16,8 +16,16 @@ namespace BERNOUILLI
 
 
 
-        public int run(){
+        public int rand(){
             return myRand.rand_0_1() <=win_proba ? win_number : loose_number;
+        }
+
+        public float esperance(){
+            return win_proba;
+        }
+
+        public float variance(){
+            return win_proba*(1-win_proba);
         }
     }
 }

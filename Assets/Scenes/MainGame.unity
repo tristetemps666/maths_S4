@@ -424,7 +424,7 @@ MonoBehaviour:
   - {fileID: 1113174887}
   list_is_starting_games: 
   list_is_finished_games: 
-  player_money: 100
+  player_money: 200
 --- !u!114 &158417742
 MonoBehaviour:
   m_ObjectHideFlags: 0
