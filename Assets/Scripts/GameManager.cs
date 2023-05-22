@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     private Lancer strat_2_script;
 
     private List<(string,string)> list_strats_names = new List<(string, string)>();
+    private List<(int,int)> list_strat_cost = new List<(int, int)>();
 
     private List<GameStrat> list_strat_one = new List<GameStrat>();
     private List<GameStrat> list_strat_two = new List<GameStrat>();
@@ -164,27 +165,11 @@ private void handle_win(){
         player_money = Mathf.Max(0, player_money);
     }
 
+    // PIECE
+
 
 
 }
-
-private void handle_strat_one(){
-    bool is_strat_1_activated = has_choose_strat_1 == true && player_money >= 50 && list_is_starting_games[active_game] && !strat_1_used;
-    if (is_strat_1_activated){
-        strat_1_script.is_activated = true;
-
-        player_money-= 50;
-        has_choose_strat_1 = false;
-        var strat = list_strat_one[active_game];
-        if (strat == null) Debug.Log("cassé");
-        strat_1_used = true;
-
-        strat(list_games[active_game]);
-    } else if(!strat_1_used){
-        strat_1_script.is_activated = false;
-    }
-}
-
 
 private void disable_buttons(){
     foreach(GameObject button in list_buttons){
@@ -197,12 +182,30 @@ private void enable_buttons(){
         button.SetActive(true);
     }
 }
+private void handle_strat_one(){
+    bool is_strat_1_activated = has_choose_strat_1 == true && player_money >= list_strat_cost[active_game].Item1 && list_is_starting_games[active_game] && !strat_1_used;
+    if (is_strat_1_activated){
+        strat_1_script.is_activated = true;
+
+        player_money-= list_strat_cost[active_game].Item1;
+        has_choose_strat_1 = false;
+        var strat = list_strat_one[active_game];
+        if (strat == null) Debug.Log("cassé");
+        strat_1_used = true;
+
+        strat(list_games[active_game]);
+    } else if(!strat_1_used){
+        strat_1_script.is_activated = false;
+    }
+}
+
+
 
 private void handle_strat_two(){
-    bool is_strat_2_activated = has_choose_strat_2 == true && player_money >= 60 && list_is_starting_games[active_game] && !strat_2_used;
+    bool is_strat_2_activated = has_choose_strat_2 == true && player_money >= list_strat_cost[active_game].Item2 && list_is_starting_games[active_game] && !strat_2_used;
     if (is_strat_2_activated){
         strat_2_script.is_activated = true;
-        player_money-=60;
+        player_money-=list_strat_cost[active_game].Item2;
         has_choose_strat_2 = false;
         var strat2 = list_strat_two[active_game];
         if (strat2 == null) Debug.Log("cassé");
@@ -219,17 +222,25 @@ private void handle_strat_two(){
     private void setup_all_strats(){
         setup_all_strats_one();
         setup_all_strats_two();
-        list_is_starting_games.Add(false);
-        list_is_finished_games.Add(false);
 
-        list_is_starting_games.Add(false);
-        list_is_finished_games.Add(false);
+        for(int i = 0; i<list_games.Count; i++){
+            list_is_starting_games.Add(false);
+            list_is_finished_games.Add(false);
 
-        list_proga_games.Add((0,0));
-        list_proga_games.Add((0,0));
+            list_proga_games.Add((0,0));
+            list_strat_cost.Add((0,0));
+        }
+
+        setup_strat_cost();
 
         setup_list_names();
 
+    }
+
+    void setup_strat_cost(){
+        list_strat_cost[0] = (50,50);
+        list_strat_cost[1] = (50,80);
+        // list_strat_cost[2] = (100,20);
     }
     private void setup_activations(){
         for(int i=0; i<list_games.Count; i++){
@@ -237,6 +248,7 @@ private void handle_strat_two(){
             else list_games[i].SetActive(false);
         }
     }
+
 
 
     private void setup_all_strats_one(){
@@ -282,6 +294,7 @@ private void handle_strat_two(){
     private void setup_list_names(){
         list_strats_names.Add(("x2 (50$)","pair=choose next (50$)")); // DICE
         list_strats_names.Add(("x2 (50$)","+1 (80$)")); // FAKIR
+        list_strats_names.Add(("Win : 0.75% (100$)","Miser 50$")); // PIECE
     }
 
     private void update_buttons_names(){
@@ -306,20 +319,15 @@ private void handle_strat_two(){
     void update_list_is_starting(){
         list_is_starting_games[0] = !list_games[0].GetComponent<Dice>().is_running && !list_games[0].GetComponent<Dice>().has_win;
         list_is_starting_games[1] = !list_games[1].GetComponent<Fakir>().is_running && !list_games[1].GetComponent<Fakir>().has_fallen;
+        // list_is_starting_games[2] = false;
     }
 
 
     void update_list_is_finished(){
         list_is_finished_games[0] = list_games[0].GetComponent<Dice>().is_over;
         list_is_finished_games[1] = list_games[1].GetComponent<Fakir>().is_over;
+        // list_is_finished_games[2] = false;
     }
-
-
-    GameStrat strat_one_fakir = (game) => {
-        Fakir fakir = game.GetComponent<Fakir>();
-        fakir.strat_one();
-        return true;
-    };
 
 
 
@@ -327,6 +335,7 @@ private void handle_strat_two(){
         TextMeshPro game_info_name = GameInfos.GetComponentsInChildren<TextMeshPro>()[0];
         game_info_name.text = list_games[active_game].name;
     }
+
 
     void update_game_info_proba(){
         TextMeshPro game_info_proba = GameInfos.GetComponentsInChildren<TextMeshPro>()[1];
