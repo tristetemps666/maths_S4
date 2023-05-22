@@ -128,6 +128,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5311892645399530321, guid: 711aac1d04aac844ab332a0548366bbc, type: 3}
   m_PrefabInstance: {fileID: 1564389415}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &39521307 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6244619931956733262, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
+  m_PrefabInstance: {fileID: 449648217}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &116508836
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +429,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active_game: 0
-  has_choose_strat_1: 1
+  has_choose_strat_1: 0
+  has_choose_strat_2: 0
+  strat_1_used: 0
+  strat_2_used: 0
   Strat_1: {fileID: 978223762}
   Strat_2: {fileID: 210142919}
   list_games:
@@ -982,7 +996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc52fad031ecd5742b560fb139f912ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 1
+  state: 0
   active_game_transform: {fileID: 1315497270}
   left_out_transform: {fileID: 175386232}
   right_out_transform: {fileID: 1686487705}
@@ -1391,6 +1405,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5684349575236802191, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
+      propertyPath: launch_button
+      value: 
+      objectReference: {fileID: 219404348}
+    - target: {fileID: 5684349575236802191, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
+      propertyPath: dice_test_text
+      value: 
+      objectReference: {fileID: 1462682918}
+    - target: {fileID: 5684349575236802191, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
+      propertyPath: win_factor_text
+      value: 
+      objectReference: {fileID: 39521307}
     m_RemovedComponents:
     - {fileID: 8817350617136843013, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
@@ -2712,6 +2738,17 @@ Transform:
   m_Father: {fileID: 244866725}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1462682918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 327926270925893280, guid: b1987a2868c049148ab7d2b5b8ab08e9, type: 3}
+  m_PrefabInstance: {fileID: 449648217}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1564389415
 PrefabInstance:
   m_ObjectHideFlags: 0

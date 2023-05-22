@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     public GameObject Strat_2;
     private Lancer strat_1_script;
     private Lancer strat_2_script;
+
+    private List<(string,string)> list_strats_names = new List<(string, string)>();
+
     private List<GameStrat> list_strat_one = new List<GameStrat>();
     private List<GameStrat> list_strat_two = new List<GameStrat>();
     public List<GameObject> list_games;
@@ -57,7 +60,8 @@ public class GameManager : MonoBehaviour
         // Time.fixedDeltaTime = 0.1f; // low frequency for physics CASSE LA PHYSIQUE
         // IDEAL => Object qui se simule parfaitement => la balle affichée prend une pose toute les tant
 
-        setup_all_strats();
+        setup_all_strats(); // 0: DICE / 1 : Fakir /  
+        update_buttons_names();
 
 
 
@@ -108,6 +112,7 @@ public class GameManager : MonoBehaviour
                     has_choose_strat_1 = false;
                     has_choose_strat_2 = false;
                     active_game = carrousel.next_game;
+                    update_buttons_names();
                 break;
         }
 
@@ -183,6 +188,9 @@ private void handle_strat_two(){
 
         list_is_starting_games.Add(false);
         list_is_finished_games.Add(false);
+
+        setup_list_names();
+
     }
 
 
@@ -220,6 +228,17 @@ private void handle_strat_two(){
 
 
     }
+
+    private void setup_list_names(){
+        list_strats_names.Add(("x2 (50$)","pair=coin (50$)")); // DICE
+        list_strats_names.Add(("x2 (50$)","+1 (80$)")); // FAKIR
+    }
+
+    private void update_buttons_names(){
+        strat_1_script.set_button_text(list_strats_names[active_game].Item1);
+        strat_2_script.set_button_text(list_strats_names[active_game].Item2);  
+    }
+
 
     public int get_money(){
         return player_money;

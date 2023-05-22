@@ -52,4 +52,10 @@ public class Lancer : MonoBehaviour
             is_launched = true;
         }
     }
+
+
+    public void set_button_text(string text){
+        button_text.text = text;
+        button_text.fontSize = (text.Length >=10) ? 5 : 7;
+    }
 }
