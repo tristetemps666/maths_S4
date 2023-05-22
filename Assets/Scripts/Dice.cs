@@ -13,7 +13,7 @@ public class Dice : MonoBehaviour
 
     public Lancer launch_button;
 
-    private float win_multiplier = 10f;
+    public int win_multiplier = 10;
 
 
     public bool has_win = false;
@@ -31,6 +31,8 @@ public class Dice : MonoBehaviour
     private DiscreteUniform dice_proba = new DiscreteUniform();
     public float time_to_roll = 2f;
 
+    public bool has_just_win = false;
+    public int res = 0;
 
 
     // Start is called before the first frame update
@@ -50,9 +52,11 @@ public class Dice : MonoBehaviour
         if(is_running) dice_test_text.text =  "Roll";
 
 
-        if(time_to_roll == 0f && !has_win){
-            float result = dice_proba.rand();
-            dice_test_text.text = result.ToString();
+        has_just_win = time_to_roll == 0f && !has_win;
+
+        if(has_just_win){
+            res = dice_proba.rand();
+            dice_test_text.text = res.ToString();
             has_win = true;
             is_running = false;
 
@@ -84,7 +88,7 @@ public class Dice : MonoBehaviour
 
 
     public void strat_one(){
-        if(!is_running && !has_win) win_multiplier*=2f;
+        if(!is_running && !has_win) win_multiplier*=2;
 
     }
 

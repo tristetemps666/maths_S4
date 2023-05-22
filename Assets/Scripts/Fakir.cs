@@ -32,7 +32,6 @@ public class Fakir : MonoBehaviour
 
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +49,7 @@ public class Fakir : MonoBehaviour
         
         is_over = has_fallen && number_of_ball==0;  
 
-        is_running = launch_button.is_launched && number_of_ball>0 ? true : is_running;
+        is_running = launch_button.is_launched && number_of_ball>0? true : is_running;
         if (launch_button.is_launched) number_of_ball--;
         
         diff = Ball.GetComponent<Ball>().get_diff();
@@ -60,6 +59,7 @@ public class Fakir : MonoBehaviour
         
         
         if(!invoked  && has_fallen && number_of_ball >0){
+            Debug.Log("encore");
             Invoke("setup_one_more_lanch",2f);
             invoked = true;
         }

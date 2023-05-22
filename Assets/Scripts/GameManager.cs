@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
 
         setup_all_strats(); // 0: DICE / 1 : Fakir /  
         update_buttons_names();
+        setup_activations();
 
 
 
@@ -95,11 +96,14 @@ public class GameManager : MonoBehaviour
                 has_choose_strat_1 = strat_1_script.is_launched;
                 has_choose_strat_2 = strat_2_script.is_launched;
 
+                if(list_is_finished_games[active_game]) carrousel.state = carroussel_state.is_rolling;
+
                 break;
 
 
             case carroussel_state.is_rolling:
-                disable_buttons();                
+                disable_buttons();
+                list_games[carrousel.next_game].SetActive(true);  
 
                 break;
 
@@ -111,6 +115,11 @@ public class GameManager : MonoBehaviour
                     carrousel.state = carroussel_state.ready_to_play;
                     has_choose_strat_1 = false;
                     has_choose_strat_2 = false;
+                    strat_1_used = false;
+                    strat_2_used = false;
+                    
+                    list_games[active_game].SetActive(false);
+
                     active_game = carrousel.next_game;
                     update_buttons_names();
                 break;
@@ -124,7 +133,18 @@ public class GameManager : MonoBehaviour
 
 
 
+
+
 private void handle_win(){
+    
+    // DICE
+    Dice dice = list_games[0].GetComponent<Dice>();
+    if(dice.has_just_win){
+        player_money += dice.res*dice.win_multiplier;
+    }
+
+
+    //FAKIR
     if(ball_fakir.has_win){
         ball_fakir.has_win = false;
         player_money+=ball_fakir.win_value;
@@ -192,11 +212,19 @@ private void handle_strat_two(){
         setup_list_names();
 
     }
+    private void setup_activations(){
+        for(int i=0; i<list_games.Count; i++){
+            if (i==active_game) list_games[i].SetActive(true);
+            else list_games[i].SetActive(false);
+        }
+    }
 
 
     private void setup_all_strats_one(){
         GameStrat strat_one_dice = (game) =>{
-
+            Dice dice = game.GetComponent<Dice>();
+            if(dice==null) return false;
+            dice.strat_one();
             return true;
         };
         list_strat_one.Add(strat_one_dice);
@@ -213,6 +241,9 @@ private void handle_strat_two(){
 
     private void setup_all_strats_two(){
         GameStrat strat_two_dice = (game) =>{
+            Dice dice = game.GetComponent<Dice>();
+            if(dice==null) return false;
+            dice.strat_two();
             return true;
         };
         list_strat_two.Add(strat_two_dice);
@@ -250,10 +281,13 @@ private void handle_strat_two(){
     // }
 
     void update_list_is_starting(){
+        list_is_starting_games[0] = !list_games[0].GetComponent<Dice>().is_running && !list_games[0].GetComponent<Dice>().has_win;
         list_is_starting_games[1] = !list_games[1].GetComponent<Fakir>().is_running && !list_games[1].GetComponent<Fakir>().has_fallen;
     }
 
+
     void update_list_is_finished(){
+        list_is_finished_games[0] = list_games[0].GetComponent<Dice>().is_over;
         list_is_finished_games[1] = list_games[1].GetComponent<Fakir>().is_over;
     }
 
