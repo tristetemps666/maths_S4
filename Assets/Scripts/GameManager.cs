@@ -47,6 +47,9 @@ public class GameManager : MonoBehaviour
     public List<GameObject> list_buttons = new List<GameObject>();
 
 
+    private List<(float,float)> list_proga_games = new List<(float, float)>();
+
+
     private Carrousel carrousel;
 
     public GameObject GameInfos;    
@@ -63,7 +66,7 @@ public class GameManager : MonoBehaviour
         // Time.fixedDeltaTime = 0.1f; // low frequency for physics CASSE LA PHYSIQUE
         // IDEAL => Object qui se simule parfaitement => la balle affichée prend une pose toute les tant
 
-        setup_all_strats(); // 0: DICE / 1 : Fakir /  
+        setup_all_strats(); // 0: DICE / 1 : Fakir / 
         update_buttons_names();
         setup_activations();
         update_game_info_name();
@@ -81,6 +84,7 @@ public class GameManager : MonoBehaviour
 
         switch(carrousel.state){
             case carroussel_state.ready_to_play:
+                update_proba_games();
                 update_game_info_proba();
                 enable_buttons();
 
@@ -129,6 +133,7 @@ public class GameManager : MonoBehaviour
                     active_game = carrousel.next_game;
                     update_buttons_names();
                     update_game_info_name();
+                    update_proba_games();
                     update_game_info_proba();
                 break;
         }
@@ -220,6 +225,9 @@ private void handle_strat_two(){
         list_is_starting_games.Add(false);
         list_is_finished_games.Add(false);
 
+        list_proga_games.Add((0,0));
+        list_proga_games.Add((0,0));
+
         setup_list_names();
 
     }
@@ -281,6 +289,10 @@ private void handle_strat_two(){
         strat_2_script.set_button_text(list_strats_names[active_game].Item2);  
     }
 
+    private void update_proba_games(){
+        Dice dice = list_games[0].GetComponent<Dice>();
+        list_proga_games[0] = (dice.dice_proba.esperance()*dice.win_multiplier,dice.dice_proba.variance());
+    }
 
     public int get_money(){
         return player_money;
@@ -318,6 +330,7 @@ private void handle_strat_two(){
 
     void update_game_info_proba(){
         TextMeshPro game_info_proba = GameInfos.GetComponentsInChildren<TextMeshPro>()[1];
+        game_info_proba.text = "E(x) = " + list_proga_games[active_game].Item1.ToString()+ "\nV(X) = "+ list_proga_games[active_game].Item2.ToString();
 
     }
 

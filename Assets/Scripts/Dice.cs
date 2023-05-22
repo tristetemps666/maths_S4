@@ -28,7 +28,7 @@ public class Dice : MonoBehaviour
     public TextMeshPro win_factor_text;
     public TextMeshPro dice_test_text;
 
-    private DiscreteUniform dice_proba = new DiscreteUniform();
+    public DiscreteUniform dice_proba = new DiscreteUniform();
     public float time_to_roll = 2f;
 
     public bool has_just_win = false;

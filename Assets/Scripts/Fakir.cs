@@ -49,7 +49,7 @@ public class Fakir : MonoBehaviour
     {
 
         
-        is_over = has_fallen && number_of_ball==0;  
+        is_over = has_fallen && number_of_ball==0;
         
         diff = Ball.GetComponent<Ball>().get_diff();
         has_win = Ball.GetComponent<Ball>().has_win;
