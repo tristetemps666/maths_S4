@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
                 has_choose_strat_1 = strat_1_script.is_launched;
                 has_choose_strat_2 = strat_2_script.is_launched;
 
-                if(list_is_finished_games[active_game]) carrousel.state = carroussel_state.is_rolling;
+                if(list_is_finished_games[active_game] && active_game < list_games.Count-1) carrousel.state = carroussel_state.is_rolling;
 
                 break;
 
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
                     has_choose_strat_2 = false;
                     strat_1_used = false;
                     strat_2_used = false;
-                    
+
                     list_games[active_game].SetActive(false);
 
                     active_game = carrousel.next_game;
@@ -145,11 +145,14 @@ private void handle_win(){
 
 
     //FAKIR
-    if(ball_fakir.has_win){
-        ball_fakir.has_win = false;
+    Fakir fakir = list_games[1].GetComponent<Fakir>();
+    if(fakir.has_just_win){
         player_money+=ball_fakir.win_value;
         player_money = Mathf.Max(0, player_money);
     }
+
+
+
 }
 
 private void handle_strat_one(){
@@ -261,7 +264,7 @@ private void handle_strat_two(){
     }
 
     private void setup_list_names(){
-        list_strats_names.Add(("x2 (50$)","pair=coin (50$)")); // DICE
+        list_strats_names.Add(("x2 (50$)","pair=choose next (50$)")); // DICE
         list_strats_names.Add(("x2 (50$)","+1 (80$)")); // FAKIR
     }
 

@@ -29,6 +29,8 @@ public class Fakir : MonoBehaviour
     public bool is_over = false;
 
     bool invoked = false;
+    bool invoked2 = false;
+    public bool has_just_win = false;
 
 
 
@@ -48,21 +50,27 @@ public class Fakir : MonoBehaviour
 
         
         is_over = has_fallen && number_of_ball==0;  
-
-        is_running = launch_button.is_launched && number_of_ball>0? true : is_running;
-        if (launch_button.is_launched) number_of_ball--;
         
         diff = Ball.GetComponent<Ball>().get_diff();
         has_win = Ball.GetComponent<Ball>().has_win;
 
         if (has_win) has_fallen = true;
         
+        has_just_win = false;
+
+        if(!invoked2 && has_fallen && !is_over){
+            invoked2 = true;
+            has_just_win = true;
+        }
         
         if(!invoked  && has_fallen && number_of_ball >0){
             Debug.Log("encore");
             Invoke("setup_one_more_lanch",2f);
             invoked = true;
         }
+
+        is_running = launch_button.is_launched && number_of_ball>0? true : is_running;
+        if (launch_button.is_launched) number_of_ball--;
 
         if (is_over) is_running =false;
 
@@ -92,6 +100,10 @@ public class Fakir : MonoBehaviour
             is_running = false;
             Ball.transform.position = ball_start_position;
             has_fallen = false;
+            Ball.GetComponent<Ball>().has_win = false;
+            Ball.GetComponent<Ball>().win_value = 0;
+            invoked2 = false;
     }
+
 
 }
