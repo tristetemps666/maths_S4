@@ -3,6 +3,7 @@ using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 
@@ -47,6 +48,8 @@ public class GameManager : MonoBehaviour
 
 
     private Carrousel carrousel;
+
+    public GameObject GameInfos;    
     // Start is called before the first frame update
     void Start()
     {
@@ -63,6 +66,8 @@ public class GameManager : MonoBehaviour
         setup_all_strats(); // 0: DICE / 1 : Fakir /  
         update_buttons_names();
         setup_activations();
+        update_game_info_name();
+        update_game_info_proba();
 
 
 
@@ -76,6 +81,7 @@ public class GameManager : MonoBehaviour
 
         switch(carrousel.state){
             case carroussel_state.ready_to_play:
+                update_game_info_proba();
                 enable_buttons();
 
                 update_list_is_starting();
@@ -122,6 +128,8 @@ public class GameManager : MonoBehaviour
 
                     active_game = carrousel.next_game;
                     update_buttons_names();
+                    update_game_info_name();
+                    update_game_info_proba();
                 break;
         }
 
@@ -301,5 +309,16 @@ private void handle_strat_two(){
         return true;
     };
 
+
+
+    void update_game_info_name(){
+        TextMeshPro game_info_name = GameInfos.GetComponentsInChildren<TextMeshPro>()[0];
+        game_info_name.text = list_games[active_game].name;
+    }
+
+    void update_game_info_proba(){
+        TextMeshPro game_info_proba = GameInfos.GetComponentsInChildren<TextMeshPro>()[1];
+
+    }
 
 }
