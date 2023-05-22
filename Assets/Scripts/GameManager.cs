@@ -166,6 +166,11 @@ private void handle_win(){
     }
 
     // PIECE
+    Piece piece = list_games[2].GetComponent<Piece>();
+    if(piece.has_just_win){
+        player_money+=piece.res;
+        player_money = Mathf.Max(0, player_money);
+    }
 
 
 
@@ -197,6 +202,8 @@ private void handle_strat_one(){
     } else if(!strat_1_used){
         strat_1_script.is_activated = false;
     }
+
+    if(!has_choose_strat_2 && strat_2_used && active_game ==2) strat_2_used = false; // piece, on peut miser plusieurs fois
 }
 
 
@@ -240,7 +247,7 @@ private void handle_strat_two(){
     void setup_strat_cost(){
         list_strat_cost[0] = (50,50);
         list_strat_cost[1] = (50,80);
-        // list_strat_cost[2] = (100,20);
+        list_strat_cost[2] = (100,20);
     }
     private void setup_activations(){
         for(int i=0; i<list_games.Count; i++){
@@ -267,6 +274,16 @@ private void handle_strat_two(){
             return true;
         };
         list_strat_one.Add(strat_one_fakir);
+
+
+        GameStrat strat_one_piece = (game) => {
+            Piece piece = game.GetComponent<Piece>();
+            if(piece==null) return false;
+            piece.strat_one();
+            return true;
+        };
+        list_strat_one.Add(strat_one_piece);
+
     }
 
 
@@ -289,12 +306,21 @@ private void handle_strat_two(){
         list_strat_two.Add(strat_two_fakir);
 
 
+        GameStrat strat_two_piece = (game) => {
+            Piece piece = game.GetComponent<Piece>();
+            if(piece==null) return false;
+            piece.strat_two();
+            return true;
+        };
+        list_strat_two.Add(strat_two_piece);
+
+
     }
 
     private void setup_list_names(){
         list_strats_names.Add(("x2 (50$)","pair=choose next (50$)")); // DICE
         list_strats_names.Add(("x2 (50$)","+1 (80$)")); // FAKIR
-        list_strats_names.Add(("Win : 0.75% (100$)","Miser 50$")); // PIECE
+        list_strats_names.Add(("Win : 0.75% (100$)","Miser 20$")); // PIECE
     }
 
     private void update_buttons_names(){
@@ -305,6 +331,9 @@ private void handle_strat_two(){
     private void update_proba_games(){
         Dice dice = list_games[0].GetComponent<Dice>();
         list_proga_games[0] = (dice.dice_proba.esperance()*dice.win_multiplier,dice.dice_proba.variance());
+
+        Piece piece = list_games[2].GetComponent<Piece>();
+        list_proga_games[2] = (piece.piece_proba.esperance()*piece.mise*2,piece.piece_proba.variance());
     }
 
     public int get_money(){
@@ -319,14 +348,14 @@ private void handle_strat_two(){
     void update_list_is_starting(){
         list_is_starting_games[0] = !list_games[0].GetComponent<Dice>().is_running && !list_games[0].GetComponent<Dice>().has_win;
         list_is_starting_games[1] = !list_games[1].GetComponent<Fakir>().is_running && !list_games[1].GetComponent<Fakir>().has_fallen;
-        // list_is_starting_games[2] = false;
+        list_is_starting_games[2] = !list_games[2].GetComponent<Piece>().is_running && !list_games[2].GetComponent<Piece>().has_win;
     }
 
 
     void update_list_is_finished(){
         list_is_finished_games[0] = list_games[0].GetComponent<Dice>().is_over;
         list_is_finished_games[1] = list_games[1].GetComponent<Fakir>().is_over;
-        // list_is_finished_games[2] = false;
+        list_is_finished_games[2] = list_games[2].GetComponent<Piece>().is_over;
     }
 
 

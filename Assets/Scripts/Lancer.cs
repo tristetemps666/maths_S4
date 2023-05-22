@@ -38,15 +38,15 @@ public class Lancer : MonoBehaviour
 
 
     void OnMouseOver(){
-        if(Input.GetMouseButtonDown(0)){
-            if (toggle_mode){
-                is_activated = true;
-                is_launched = true;
-            }
+        if(Input.GetMouseButton(0)){
             button_text.color = Color.black;
             bgrd_button.color = Color.white;
         }
         if(Input.GetMouseButtonUp(0)){
+            if (toggle_mode){
+                is_activated = true;
+                is_launched = true;
+            }
             button_text.color = Color.white;
             bgrd_button.color = Color.black;
             is_launched = true;

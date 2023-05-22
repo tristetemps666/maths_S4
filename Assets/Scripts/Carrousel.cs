@@ -38,7 +38,7 @@ public class Carrousel : MonoBehaviour
     void Update()
     {
         active_game = GetComponentInParent<GameManager>().active_game;
-        next_game = Mathf.Min(active_game+1,1);
+        next_game = Mathf.Min(active_game+1,2);
 
 
         GameObject go_active_game = list_games[active_game];

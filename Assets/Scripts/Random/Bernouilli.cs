@@ -27,7 +27,7 @@ namespace BERNOULLI
     
     public class Bernoulli {
 
-        private float win_proba = 0.5f;
+        public float win_proba = 0.5f;
         private int win_number = 1;
         private int loose_number = 0;
 
