@@ -55,6 +55,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject GameInfos;    
     // Start is called before the first frame update
+
+    public bool on_main_cam = true;
+
+    public Camera main_cam;
+    public Camera map_cam;
     void Start()
     {
         strat_1_script = Strat_1.GetComponent<Lancer>();
@@ -67,11 +72,12 @@ public class GameManager : MonoBehaviour
         // Time.fixedDeltaTime = 0.1f; // low frequency for physics CASSE LA PHYSIQUE
         // IDEAL => Object qui se simule parfaitement => la balle affichée prend une pose toute les tant
 
-        setup_all_strats(); // 0: DICE / 1 : Fakir / 
+        setup_all_strats(); // 0: DICE / 1 : Fakir / 2 : Piece
         update_buttons_names();
         setup_activations();
         update_game_info_name();
         update_game_info_proba();
+        set_camera(on_main_cam);
 
 
 
@@ -82,6 +88,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        update_camera();
 
         switch(carrousel.state){
             case carroussel_state.ready_to_play:
@@ -330,10 +337,10 @@ private void handle_strat_two(){
 
     private void update_proba_games(){
         Dice dice = list_games[0].GetComponent<Dice>();
-        list_proga_games[0] = (dice.dice_proba.esperance()*dice.win_multiplier,dice.dice_proba.variance());
+        list_proga_games[0] = (dice.dice_proba.esperance()*dice.win_multiplier,Mathf.Pow(dice.win_multiplier,2)*dice.dice_proba.variance());
 
         Piece piece = list_games[2].GetComponent<Piece>();
-        list_proga_games[2] = (piece.piece_proba.esperance()*piece.mise*2,piece.piece_proba.variance());
+        list_proga_games[2] = (piece.piece_proba.esperance()*piece.mise*2,Mathf.Pow(piece.mise*2,2)*piece.piece_proba.variance());
     }
 
     public int get_money(){
@@ -369,6 +376,20 @@ private void handle_strat_two(){
     void update_game_info_proba(){
         TextMeshPro game_info_proba = GameInfos.GetComponentsInChildren<TextMeshPro>()[1];
         game_info_proba.text = "E(x) = " + list_proga_games[active_game].Item1.ToString()+ "\nV(X) = "+ list_proga_games[active_game].Item2.ToString();
+
+    }
+
+
+    void set_camera(bool on_main_cam){
+        main_cam.enabled = on_main_cam;
+        map_cam.enabled = !on_main_cam;
+    }
+
+    void update_camera(){
+        if(Input.GetKeyDown(KeyCode.C)){
+            on_main_cam = !on_main_cam;
+        }
+        set_camera(on_main_cam);
 
     }
 
