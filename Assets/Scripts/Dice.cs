@@ -102,4 +102,18 @@ public class Dice : MonoBehaviour
         is_over = true;
     }
 
+    public void reset(){
+        has_just_win = false;
+        has_win = false;
+        is_over = false;
+        is_running = false;
+        can_get_coin = false;
+        res = 0;
+        win_multiplier = 10;
+        invoked = false;
+        time_to_roll = 2f;
+
+        dice_test_text.text = "Dice";
+    }
+
 }

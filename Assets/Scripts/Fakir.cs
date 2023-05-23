@@ -17,7 +17,7 @@ public class Fakir : MonoBehaviour
 
     public List<TextMeshPro> list_rewards_text;
 
-    private float strat_one_multiplier = 2f;
+    private float strat_one_multiplier = 1f;
 
 
     public int number_of_ball = 1;
@@ -39,7 +39,7 @@ public class Fakir : MonoBehaviour
     {
         Ball = GetComponentInChildren<Ball>().gameObject;
         Ball.GetComponent<Rigidbody2D>().isKinematic = false;
-        ball_start_position = Ball.transform.position;
+        ball_start_position = Ball.transform.localPosition;
 
         list_rewards_text.AddRange(GetComponentsInChildren<TextMeshPro>());
     }
@@ -84,6 +84,7 @@ public class Fakir : MonoBehaviour
 
     public void strat_one(){
         if(!is_running && !has_win)
+            strat_one_multiplier*=2f;
             list_rewards_text.ForEach(txt => txt.text = (int.Parse(txt.text)*strat_one_multiplier).ToString());
     }
 
@@ -98,11 +99,28 @@ public class Fakir : MonoBehaviour
     void setup_one_more_lanch(){
             Debug.Log("encore !!!");
             is_running = false;
-            Ball.transform.position = ball_start_position;
+            Ball.transform.localPosition = ball_start_position;
             has_fallen = false;
             Ball.GetComponent<Ball>().has_win = false;
             Ball.GetComponent<Ball>().win_value = 0;
             invoked2 = false;
+    }
+
+
+    public void reset(){
+        is_over = false;
+        has_fallen = false;
+        has_win = false;
+        invoked = false;
+        invoked2 = false;
+        number_of_ball = 1;
+        is_running = false;
+
+        if(strat_one_multiplier == 2f){
+            strat_one_multiplier = 1f;
+            list_rewards_text.ForEach(txt => txt.text = (int.Parse(txt.text)*strat_one_multiplier).ToString());
+        }
+        Ball.transform.localPosition = ball_start_position;
     }
 
 

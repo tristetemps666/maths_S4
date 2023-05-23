@@ -102,4 +102,17 @@ public class Piece : MonoBehaviour
         is_over = true;
     }
 
+    public void reset(){
+        mise = 10;
+        is_running = false;
+        has_win = false;
+        is_over = false;
+        invoked = false;
+        piece_proba.win_proba = 0.5f;
+        has_just_win = false;
+        res = 0;
+        time_to_roll = 2f;
+        piece_test_text.text = "Piece";
+    }
+
 }

@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MyRand;
 
 
-public enum carroussel_state{ready_to_play, is_rolling, is_paused, finished_to_roll};
+public enum carroussel_state{ready_to_play,start_to_roll, is_rolling, is_paused, finished_to_roll};
 
 public class Carrousel : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Carrousel : MonoBehaviour
     public float speed_to_roll = 1f;
 
 
-    private int active_game;
+    public int active_game;
     public int next_game;
 
     public Material conveyor_belt_material;
@@ -29,7 +30,17 @@ public class Carrousel : MonoBehaviour
 
 
 
+    private float[][] transition_matrix = new float[][]
+    {
+       new float[] {0f,0.3f,0.7f},
+       new float[] {0.5f,0f,0.5f},
+       new float[] {0.2f,0.8f,0f}
+    };
 
+
+
+
+   // 0: DICE / 1 : Fakir / 2 : Piece
     void Start()
     {
         list_games = GetComponentInParent<GameManager>().list_games; 
@@ -42,13 +53,22 @@ public class Carrousel : MonoBehaviour
     void Update()
     {
         active_game = GetComponentInParent<GameManager>().active_game;
-        next_game = Mathf.Min(active_game+1,2);
+        // next_game = Mathf.Min(active_game+1,2);
 
 
-        GameObject go_active_game = list_games[active_game];
+
+
+        if(state == carroussel_state.start_to_roll){
+            choose_next_game();
+            state = carroussel_state.is_rolling;
+        }
+
         GameObject go_next_game = list_games[next_game];
+        GameObject go_active_game = list_games[active_game];
 
         if(state == carroussel_state.is_rolling){
+
+
             if(Vector3.Distance(go_next_game.transform.position,active_game_transform.position) >= 0.1f){ // am I close ?
                 go_active_game.transform.position = move_toward_a_position(go_active_game.transform,left_out_transform);
                 go_next_game.transform.position = move_toward_a_position(go_next_game.transform,active_game_transform);
@@ -59,7 +79,7 @@ public class Carrousel : MonoBehaviour
             else{ // the roll is over
                 state = carroussel_state.finished_to_roll;
                 go_active_game.transform.position = right_out_transform.position;
-                conveyor_belt_material.SetFloat("_is_moving",0f);
+                conveyor_belt_material.SetFloat("_is_moving",0f);   
 
 
             }
@@ -85,4 +105,20 @@ public class Carrousel : MonoBehaviour
             }
         }
     }
+
+    void choose_next_game(){
+        float val = myRand.rand_0_1();
+        float sum_proba = 0f;
+
+        for(int i=0; i<list_games.Count; i++){
+            sum_proba+=transition_matrix[active_game][i];
+            if(sum_proba >val){
+                next_game = i;
+                return;
+            }
+        }
+        Debug.Log("ça a cassé / n'a pas trouvé le suivant");
+    }
+
+
 }

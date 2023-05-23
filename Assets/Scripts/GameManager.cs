@@ -114,14 +114,17 @@ public class GameManager : MonoBehaviour
                 has_choose_strat_1 = strat_1_script.is_launched;
                 has_choose_strat_2 = strat_2_script.is_launched;
 
-                if(list_is_finished_games[active_game] && active_game < list_games.Count-1) carrousel.state = carroussel_state.is_rolling;
+                if(list_is_finished_games[active_game]){
+                    carrousel.state = carroussel_state.start_to_roll;
+                    list_is_finished_games[active_game] = false;
+                } 
 
                 break;
 
 
             case carroussel_state.is_rolling:
                 disable_buttons();
-                list_games[carrousel.next_game].SetActive(true);  
+                list_games[carrousel.next_game].SetActive(true);
 
                 break;
 
@@ -136,6 +139,7 @@ public class GameManager : MonoBehaviour
                     strat_1_used = false;
                     strat_2_used = false;
 
+                    reset_active_game();
                     list_games[active_game].SetActive(false);
 
                     active_game = carrousel.next_game;
@@ -393,4 +397,26 @@ private void handle_strat_two(){
 
     }
 
+    void reset_active_game(){
+        switch (active_game){
+
+            case 0:
+                Debug.Log("reset dice");
+                Dice dice = list_games[active_game].GetComponent<Dice>();
+                dice.reset();
+                break;
+
+            case 1:
+                Debug.Log("reset fakir");
+                Fakir fakir = list_games[active_game].GetComponent<Fakir>();
+                fakir.reset();
+                break;
+            
+            case 2:
+                Debug.Log("reset piece");
+                Piece piece = list_games[active_game].GetComponent<Piece>();
+                piece.reset();
+                break;
+        }
+    }
 }

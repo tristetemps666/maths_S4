@@ -85,12 +85,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   is_running: 0
   launch_button: {fileID: 0}
+  win_multiplier: 10
   has_win: 0
   is_over: 0
   can_get_coin: 0
   win_factor_text: {fileID: 0}
   dice_test_text: {fileID: 0}
   time_to_roll: 2
+  has_just_win: 0
+  res: 0
 --- !u!1 &3360379682406353511
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,7 +690,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: Dice
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed93715f8136d4d4b81d1ae682c91d23, type: 2}
   m_sharedMaterial: {fileID: 9040581561301286728, guid: ed93715f8136d4d4b81d1ae682c91d23, type: 2}

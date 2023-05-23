@@ -775,7 +775,7 @@ GameObject:
   - component: {fileID: 2639393167825212058}
   - component: {fileID: 327926270925893280}
   m_Layer: 0
-  m_Name: test_dice
+  m_Name: test_piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -863,7 +863,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: PIECE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed93715f8136d4d4b81d1ae682c91d23, type: 2}
   m_sharedMaterial: {fileID: 9040581561301286728, guid: ed93715f8136d4d4b81d1ae682c91d23, type: 2}
