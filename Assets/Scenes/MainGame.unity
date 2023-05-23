@@ -1191,6 +1191,9 @@ MonoBehaviour:
   right_out_transform: {fileID: 1686487705}
   speed_to_roll: 3
   next_game: 0
+  conveyor_belt_material: {fileID: 2100000, guid: 17e9a4c5121a18d4a9d6afea55c18adb, type: 2}
+  conveyor_belt_speed: 2.23
+  conveyor_belt_offset: 0
 --- !u!212 &244866727
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2319,8 +2322,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2083130409}
   - {fileID: 1686588150}
+  - {fileID: 2083130409}
   - {fileID: 1051686778}
   m_Father: {fileID: 2020316198}
   m_RootOrder: 2
@@ -3244,9 +3247,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1263480164}
   - component: {fileID: 1263480165}
-  - component: {fileID: 1263480166}
   m_Layer: 5
-  m_Name: Map
+  m_Name: Map preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3319,24 +3321,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1263480166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263480163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd829607d9fc46a4f89424d745021e58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  game_manager: {fileID: 0}
-  list_games_visited: 
-  active_game: 0
-  diamond: {fileID: 0}
-  diamond_height: 0
-  list_game_points: []
 --- !u!1 &1315497269
 GameObject:
   m_ObjectHideFlags: 0
@@ -3379,7 +3363,7 @@ GameObject:
   - component: {fileID: 1329026038}
   - component: {fileID: 1329026037}
   m_Layer: 0
-  m_Name: position
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3778,7 +3762,7 @@ Transform:
   - {fileID: 259609016}
   - {fileID: 1451024985}
   m_Father: {fileID: 966467316}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1712488773
 GameObject:
@@ -4151,7 +4135,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1926621146}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1926621148
 Camera:
   m_ObjectHideFlags: 0
@@ -4476,6 +4460,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2020316198}
+  - component: {fileID: 2020316199}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -4502,6 +4487,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2020316199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020316197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd829607d9fc46a4f89424d745021e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  game_manager: {fileID: 158417741}
+  list_games_visited: 
+  active_game: 0
+  diamond: {fileID: 1329026036}
+  diamond_height: 1
+  list_game_points:
+  - {fileID: 1686588149}
+  - {fileID: 2083130408}
+  - {fileID: 1051686777}
 --- !u!1 &2063969689
 GameObject:
   m_ObjectHideFlags: 0
@@ -4554,7 +4560,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 17e9a4c5121a18d4a9d6afea55c18adb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4701,5 +4707,5 @@ Transform:
   - {fileID: 1712488774}
   - {fileID: 964403394}
   m_Father: {fileID: 966467316}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

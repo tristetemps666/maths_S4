@@ -22,6 +22,10 @@ public class Carrousel : MonoBehaviour
     private int active_game;
     public int next_game;
 
+    public Material conveyor_belt_material;
+    public float conveyor_belt_speed = 2.23f;
+    public float conveyor_belt_offset = 0f;
+
 
 
 
@@ -48,10 +52,15 @@ public class Carrousel : MonoBehaviour
             if(Vector3.Distance(go_next_game.transform.position,active_game_transform.position) >= 0.1f){ // am I close ?
                 go_active_game.transform.position = move_toward_a_position(go_active_game.transform,left_out_transform);
                 go_next_game.transform.position = move_toward_a_position(go_next_game.transform,active_game_transform);
+
+                conveyor_belt_offset+=conveyor_belt_speed*Time.deltaTime;
+                conveyor_belt_material.SetFloat("_offset",conveyor_belt_offset);
             }
             else{ // the roll is over
                 state = carroussel_state.finished_to_roll;
                 go_active_game.transform.position = right_out_transform.position;
+                conveyor_belt_material.SetFloat("_is_moving",0f);
+
 
             }
         }   
