@@ -17,7 +17,7 @@ public class Fakir : MonoBehaviour
 
     public List<TextMeshPro> list_rewards_text;
 
-    private float strat_one_multiplier = 1f;
+    public float strat_one_multiplier = 1f;
 
 
     public int number_of_ball = 1;
@@ -116,10 +116,9 @@ public class Fakir : MonoBehaviour
         number_of_ball = 1;
         is_running = false;
 
-        if(strat_one_multiplier == 2f){
-            strat_one_multiplier = 1f;
-            list_rewards_text.ForEach(txt => txt.text = (int.Parse(txt.text)*strat_one_multiplier).ToString());
-        }
+        list_rewards_text.ForEach(txt => txt.text = (int.Parse(txt.text)/strat_one_multiplier).ToString());
+        strat_one_multiplier /= strat_one_multiplier;
+        
         Ball.transform.localPosition = ball_start_position;
     }
 
