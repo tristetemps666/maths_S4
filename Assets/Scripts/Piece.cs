@@ -43,8 +43,8 @@ public class Piece : MonoBehaviour
     void Update()
     {
 
-        win_text.text = "win : + " + mise*2 + " ("+(piece_proba.win_proba).ToString()+")";
-        loose_text.text = "loose : + " + 0 + " ("+(1-piece_proba.win_proba).ToString()+")";
+        win_text.text = "gain : + " + mise*2 + " ("+(piece_proba.win_proba).ToString()+")";
+        loose_text.text = "perte : + " + 0 + " ("+(1-piece_proba.win_proba).ToString()+")";
 
         is_running = launch_button.is_launched && !has_win ? true : is_running;
         if (is_running) time_to_roll = Mathf.Max(0f,time_to_roll-Time.deltaTime);
@@ -112,7 +112,7 @@ public class Piece : MonoBehaviour
         has_just_win = false;
         res = 0;
         time_to_roll = 2f;
-        piece_test_text.text = "Piece";
+        piece_test_text.text = "La Pièce";
     }
 
 }

@@ -329,7 +329,7 @@ private void handle_strat_two(){
     }
 
     private void setup_list_names(){
-        list_strats_names.Add(("x2 (50$)","pair=choose next (50$)")); // DICE
+        list_strats_names.Add(("x2 (50$)","Pair = choix jeu (50$)")); // DICE
         list_strats_names.Add(("x2 (50$)","+1 (80$)")); // FAKIR
         list_strats_names.Add(("Win : 0.75% (100$)","Miser 20$")); // PIECE
     }

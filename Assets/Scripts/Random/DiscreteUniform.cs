@@ -37,7 +37,7 @@ namespace DISCRETE_UNIFORM
         private DiscreteUniformStats stats = new DiscreteUniformStats();
 
         public DiscreteUniform() {
-            stats = new DiscreteUniformStats(0); // sombre un peu obligé de mettre un param dans le constructeur wsh
+            stats = new DiscreteUniformStats(0); 
         }
 
         public DiscreteUniform(int last_number){

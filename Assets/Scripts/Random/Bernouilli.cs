@@ -35,7 +35,7 @@ namespace BERNOULLI
 
 
         public Bernoulli() {
-            stats = new BernoulliStats(0); // sombre un peu obligé de mettre un param dans le constructeur wsh
+            stats = new BernoulliStats(0); 
         }
 
 

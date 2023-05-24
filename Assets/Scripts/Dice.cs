@@ -7,6 +7,9 @@ using DISCRETE_UNIFORM;
 
 public class Dice : MonoBehaviour
 {
+
+    public List<Sprite> sprites_dice;
+    public SpriteRenderer dice_sprite_displayed;
     public bool is_running = false;
 
     private GameObject Start_button;
@@ -30,6 +33,8 @@ public class Dice : MonoBehaviour
 
     public DiscreteUniform dice_proba = new DiscreteUniform();
     public float time_to_roll = 2f;
+    public float speed_to_roll = 3f;
+    private int amount_roll = 0;
 
     public bool has_just_win = false;
     public int res = 0;
@@ -44,19 +49,26 @@ public class Dice : MonoBehaviour
     void Update()
     {
 
-        win_factor_text.text = "win : x " + win_multiplier.ToString();
+        win_factor_text.text = "gain : x " + win_multiplier.ToString();
 
         is_running = launch_button.is_launched && !has_win ? true : is_running;
         if (is_running) time_to_roll = Mathf.Max(0f,time_to_roll-Time.deltaTime);
         
-        if(is_running) dice_test_text.text =  "Roll";
+        if(is_running) {
+            // dice_test_text.text =  "Roll";
+            amount_roll = (int)Mathf.Floor((Time.time*speed_to_roll)%6);
+            dice_sprite_displayed.sprite = sprites_dice[amount_roll];
+        }
 
 
         has_just_win = time_to_roll == 0f && !has_win;
 
         if(has_just_win){
             res = dice_proba.rand();
-            dice_test_text.text = res.ToString();
+            // dice_test_text.text = res.ToString();
+            dice_sprite_displayed.sprite = sprites_dice[res-1];
+            amount_roll = 0;
+
             has_win = true;
             is_running = false;
 
@@ -113,7 +125,7 @@ public class Dice : MonoBehaviour
         invoked = false;
         time_to_roll = 2f;
 
-        dice_test_text.text = "Dice";
+        dice_test_text.text = "Le De";
     }
 
 }
