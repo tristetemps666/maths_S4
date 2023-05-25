@@ -92,7 +92,11 @@ public class FileAttente : MonoBehaviour
         if(is_running) {
 
             current_time_game = Mathf.Max(current_time_game-Time.deltaTime,0f);
+
             timer_line_scale.localScale = new Vector3(current_time_game/time_of_game,1f,1f);
+
+            is_over = current_time_game == 0f;
+             
             move_leaving_clients();
 
             time_from_last_client+= Time.deltaTime;
@@ -174,7 +178,7 @@ public class FileAttente : MonoBehaviour
         GameObject over_client =queue_clients.Dequeue();
         list_clients_leaving.Add(over_client);
         money_earned+=20;
-        text_money_earn.text = money_earned.ToString(); 
+        text_money_earn.text = money_earned.ToString() +" $"; 
     }
 
     private void move_leaving_clients(){

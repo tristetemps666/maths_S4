@@ -6281,7 +6281,7 @@ PrefabInstance:
     - target: {fileID: 1048788996963098577, guid: c5fbb1314fe9d2646b76200ad17d544f, type: 3}
       propertyPath: piece_sprite_displayed
       value: 
-      objectReference: {fileID: 1213597915}
+      objectReference: {fileID: 1979819293}
     - target: {fileID: 1048788996963098577, guid: c5fbb1314fe9d2646b76200ad17d544f, type: 3}
       propertyPath: sprites_piece.Array.size
       value: 2
@@ -6472,6 +6472,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!212 &1979819293 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1767524879347237112, guid: c5fbb1314fe9d2646b76200ad17d544f, type: 3}
+  m_PrefabInstance: {fileID: 1943668746}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1980931101
 GameObject:
   m_ObjectHideFlags: 0
