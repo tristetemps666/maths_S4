@@ -267,7 +267,7 @@ PrefabInstance:
       objectReference: {fileID: 1988313088}
     - target: {fileID: 5392847399930840147, guid: ce746920f2697954282f411e386933f8, type: 3}
       propertyPath: speed_client_to_move
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5392847399930840147, guid: ce746920f2697954282f411e386933f8, type: 3}
       propertyPath: last_client_transform

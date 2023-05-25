@@ -186,6 +186,7 @@ private void handle_win(){
 
     FileAttente attente = list_games[3].GetComponent<FileAttente>();
     if(attente.has_just_win){
+        Debug.Log("ouine");
         player_money+= attente.money_earned;
         player_money = Mathf.Max(0, player_money);
     }
@@ -266,7 +267,7 @@ private void handle_strat_two(){
         list_strat_cost[0] = (50,50);
         list_strat_cost[1] = (50,80);
         list_strat_cost[2] = (100,20);
-        list_strat_cost[3] = (70,70);
+        list_strat_cost[3] = (30,30);
     }
     private void setup_activations(){
         for(int i=0; i<list_games.Count; i++){
@@ -307,7 +308,7 @@ private void handle_strat_two(){
         GameStrat strat_one_attente = (game) => {
             FileAttente attente = game.GetComponent<FileAttente>();
             if(attente==null) return false;
-            attente.strat_two();
+            attente.strat_one();
             return true;
         };
         list_strat_one.Add(strat_one_attente);
@@ -358,7 +359,7 @@ private void handle_strat_two(){
         list_strats_names.Add(("x2 (50$)","Pair = choix jeu (50$)")); // DICE
         list_strats_names.Add(("x2 (50$)","+1 (80$)")); // FAKIR
         list_strats_names.Add(("Win : 0.75% (100$)","Miser 20$")); // PIECE
-        list_strats_names.Add(("*2 lambda client (100$)","*2 lambda payment (70$)")); // FILE ATTENTE
+        list_strats_names.Add(("*2 lambda client (50$)","*2 lambda payment (50$)")); // FILE ATTENTE
     }
 
     private void update_buttons_names(){

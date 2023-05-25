@@ -38,8 +38,6 @@ public class FileAttente : MonoBehaviour
     private Transform last_client_transform;
 
     public bool has_just_win = false;
-    public int res = 0;
-
 
     // client queue
     // public float time_last_client_came = 0f;
@@ -96,7 +94,7 @@ public class FileAttente : MonoBehaviour
             timer_line_scale.localScale = new Vector3(current_time_game/time_of_game,1f,1f);
 
             is_over = current_time_game == 0f;
-             
+
             move_leaving_clients();
 
             time_from_last_client+= Time.deltaTime;
@@ -135,7 +133,7 @@ public class FileAttente : MonoBehaviour
 
             if (state == shop_state.next_client && queue_clients.Count > 0){
                 Debug.Log("pos du client : "+ queue_clients.Peek().transform.localPosition);
-                if(Vector3.Distance(queue_clients.Peek().transform.localPosition,Vector3.zero) >= 0.01f){ // move while not arrive to the pay pose
+                if(Vector3.Distance(queue_clients.Peek().transform.localPosition,Vector3.zero) >= 0.03f){ // move while not arrive to the pay pose
                     duree_deplacement+=Time.deltaTime;
                     move_waiting_clients();
                 }
@@ -147,16 +145,16 @@ public class FileAttente : MonoBehaviour
 
         }
 
-
-        if(current_time_game == 0f && !has_win){
-            has_just_win = true;
-        }
-
         if(has_just_win){
             has_win = true;
             is_running = false;
             has_just_win = false;
         }
+
+        if(current_time_game == 0f && !has_win){
+            has_just_win = true;
+        }
+
         
 
         if (is_over) is_running =false;
@@ -229,6 +227,39 @@ public class FileAttente : MonoBehaviour
     }
 
     public void reset(){
+        is_over = false;
+
+        new_client_proba.lambda = 1f;
+        manage_client_proba.lambda = 1f;
+
+        
+        foreach(var g in queue_clients){
+            Destroy(g);
+        }
+        queue_clients = new Queue<GameObject>();
+
+        foreach(var g in list_clients_leaving){
+            Destroy(g);
+        }
+        list_clients_leaving = new List<GameObject>();
+
+        current_time_game = 10f;
+
+        time_from_last_client = 0f;
+        wait_time_for_next_client = new_client_proba.rand();
+
+        time_from_last_payment = 0f;
+        delay_for_current_payment = manage_client_proba.rand();
+
+        money_earned = 0;
+        text_money_earn.text = money_earned.ToString() +" $"; 
+
+        has_win = false;
+        duree_deplacement = 0f;
+
+        last_client_transform = one_client.transform;
+
+
 
     }
 
