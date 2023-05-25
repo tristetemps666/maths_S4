@@ -184,6 +184,13 @@ private void handle_win(){
     }
 
 
+    FileAttente attente = list_games[3].GetComponent<FileAttente>();
+    if(attente.has_just_win){
+        player_money+= attente.money_earned;
+        player_money = Mathf.Max(0, player_money);
+    }
+
+
 
 }
 
@@ -259,6 +266,7 @@ private void handle_strat_two(){
         list_strat_cost[0] = (50,50);
         list_strat_cost[1] = (50,80);
         list_strat_cost[2] = (100,20);
+        list_strat_cost[3] = (70,70);
     }
     private void setup_activations(){
         for(int i=0; i<list_games.Count; i++){
@@ -295,6 +303,15 @@ private void handle_strat_two(){
         };
         list_strat_one.Add(strat_one_piece);
 
+
+        GameStrat strat_one_attente = (game) => {
+            FileAttente attente = game.GetComponent<FileAttente>();
+            if(attente==null) return false;
+            attente.strat_two();
+            return true;
+        };
+        list_strat_one.Add(strat_one_attente);
+
     }
 
 
@@ -325,6 +342,15 @@ private void handle_strat_two(){
         };
         list_strat_two.Add(strat_two_piece);
 
+        
+        GameStrat strat_two_attente = (game) => {
+            FileAttente attente = game.GetComponent<FileAttente>();
+            if(attente==null) return false;
+            attente.strat_two();
+            return true;
+        };
+        list_strat_two.Add(strat_two_attente);
+
 
     }
 
@@ -332,6 +358,7 @@ private void handle_strat_two(){
         list_strats_names.Add(("x2 (50$)","Pair = choix jeu (50$)")); // DICE
         list_strats_names.Add(("x2 (50$)","+1 (80$)")); // FAKIR
         list_strats_names.Add(("Win : 0.75% (100$)","Miser 20$")); // PIECE
+        list_strats_names.Add(("*2 lambda 70 (100$)","*2 lambda payment (70$)")); // FILE ATTENTE
     }
 
     private void update_buttons_names(){
@@ -360,6 +387,7 @@ private void handle_strat_two(){
         list_is_starting_games[0] = !list_games[0].GetComponent<Dice>().is_running && !list_games[0].GetComponent<Dice>().has_win;
         list_is_starting_games[1] = !list_games[1].GetComponent<Fakir>().is_running && !list_games[1].GetComponent<Fakir>().has_fallen;
         list_is_starting_games[2] = !list_games[2].GetComponent<Piece>().is_running && !list_games[2].GetComponent<Piece>().has_win;
+        list_is_starting_games[3] = !list_games[3].GetComponent<FileAttente>().is_running && !list_games[3].GetComponent<FileAttente>().has_win;
     }
 
 
@@ -367,6 +395,7 @@ private void handle_strat_two(){
         list_is_finished_games[0] = list_games[0].GetComponent<Dice>().is_over;
         list_is_finished_games[1] = list_games[1].GetComponent<Fakir>().is_over;
         list_is_finished_games[2] = list_games[2].GetComponent<Piece>().is_over;
+        list_is_finished_games[3] = list_games[3].GetComponent<FileAttente>().is_over;
     }
 
 
@@ -416,6 +445,12 @@ private void handle_strat_two(){
                 Debug.Log("reset piece");
                 Piece piece = list_games[active_game].GetComponent<Piece>();
                 piece.reset();
+                break;
+
+            case 3:
+                Debug.Log("reset file Attente");
+                FileAttente file = list_games[active_game].GetComponent<FileAttente>();
+                file.reset();
                 break;
         }
     }

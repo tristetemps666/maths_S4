@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyRand;
 
-
 public enum carroussel_state{ready_to_play,start_to_roll, is_rolling, is_paused, finished_to_roll};
 
 public class Carrousel : MonoBehaviour
@@ -30,11 +29,22 @@ public class Carrousel : MonoBehaviour
 
 
 
-    private float[][] transition_matrix = new float[][]
+
+    // private float[][] transition_matrix = new float[][]
+    // {
+    //    new float[] {0f,0.3f,0.7f},
+    //    new float[] {0.5f,0f,0.5f},
+    //    new float[] {0.2f,0.8f,0f}
+    // };
+
+
+    
+    private float[][] transition_matrix = new float[][] // test
     {
-       new float[] {0f,0.3f,0.7f},
-       new float[] {0.5f,0f,0.5f},
-       new float[] {0.2f,0.8f,0f}
+       new float[] {0f,0f,0f,1f},
+       new float[] {0f,0f,0f,1f},
+       new float[] {0f,0f,0f,1f},
+       new float[] {0.3f,0.3f,0.3f,0f}
     };
 
 
