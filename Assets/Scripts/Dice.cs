@@ -65,7 +65,7 @@ public class Dice : MonoBehaviour
 
         if(has_just_win){
             res = dice_proba.rand();
-            // dice_test_text.text = res.ToString();
+            dice_test_text.text = (res*win_multiplier).ToString()+"$";
             dice_sprite_displayed.sprite = sprites_dice[res-1];
             amount_roll = 0;
 

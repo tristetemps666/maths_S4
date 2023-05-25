@@ -7,6 +7,9 @@ using BERNOULLI;
 
 public class Piece : MonoBehaviour
 {
+
+    public List<Sprite> sprites_piece;
+    public SpriteRenderer piece_sprite_displayed;
     public bool is_running = false;
 
     private GameObject Start_button;
@@ -14,6 +17,7 @@ public class Piece : MonoBehaviour
     public Lancer launch_button;
 
     public int mise = 10;
+    public int p_or_f = 1;
 
 
     public bool has_win = false;
@@ -33,6 +37,9 @@ public class Piece : MonoBehaviour
     public bool has_just_win = false;
     public int res = 0;
 
+    public float speed_to_roll = 3f;
+    private int amount_roll = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,20 +50,30 @@ public class Piece : MonoBehaviour
     void Update()
     {
 
-        win_text.text = "gain : + " + mise*2 + " ("+(piece_proba.win_proba).ToString()+")";
-        loose_text.text = "perte : + " + 0 + " ("+(1-piece_proba.win_proba).ToString()+")";
+        win_text.text = "Pile : + " + mise*2 + " ("+(piece_proba.win_proba).ToString()+")";
+        loose_text.text = "Face : + " + 0 + " ("+(1-piece_proba.win_proba).ToString()+")";
 
         is_running = launch_button.is_launched && !has_win ? true : is_running;
-        if (is_running) time_to_roll = Mathf.Max(0f,time_to_roll-Time.deltaTime);
+        if (is_running)  {
+            time_to_roll = Mathf.Max(0f,time_to_roll-Time.deltaTime);
+        }
         
-        if(is_running) piece_test_text.text =  "Roll";
+        if(is_running) {
+            //piece_test_text.text =  "Roll";
+
+            amount_roll = (int)Mathf.Floor((Time.time*speed_to_roll)%2);
+            piece_sprite_displayed.sprite = sprites_piece[amount_roll];
+        }
 
 
         has_just_win = time_to_roll == 0f && !has_win;
 
         if(has_just_win){
-            res = piece_proba.rand()*mise*2;
-            piece_test_text.text = (0.5*res/mise).ToString();
+            p_or_f = piece_proba.rand();
+            res = p_or_f*mise*2;
+            piece_test_text.text = res.ToString()+"$";
+            piece_sprite_displayed.sprite = sprites_piece[p_or_f];
+
             has_win = true;
             is_running = false;
 
@@ -112,7 +129,7 @@ public class Piece : MonoBehaviour
         has_just_win = false;
         res = 0;
         time_to_roll = 2f;
-        piece_test_text.text = "La Pièce";
+        piece_test_text.text = "La Piece";
     }
 
 }
