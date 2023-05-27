@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public bool strat_1_used = false;
     public bool strat_2_used = false;
 
+    public GameObject startMenu;
+
 
     public GameObject Strat_1;
     public GameObject Strat_2;
@@ -89,6 +91,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         update_camera();
+
+        if (Input.anyKeyDown && !Input.GetMouseButtonDown(0))
+        {
+            startMenu.SetActive(false);
+        }
 
         switch(carrousel.state){
             case carroussel_state.ready_to_play:

@@ -2159,6 +2159,12 @@ MonoBehaviour:
   is_running: 0
   launch_button: {fileID: 0}
   list_rewards_text: []
+  strat_one_multiplier: 1
+  number_of_ball: 1
+  has_win: 0
+  has_fallen: 0
+  is_over: 0
+  has_just_win: 0
 --- !u!1 &2088285808012720803
 GameObject:
   m_ObjectHideFlags: 0
@@ -8535,7 +8541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8633127981460531015}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.22, y: 0, z: -0.012049038}
+  m_LocalPosition: {x: -2.07, y: 0, z: -0.012049038}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
