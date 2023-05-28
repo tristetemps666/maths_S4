@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject startMenu;
 
+    public AudioSource win_sound;
+    public AudioSource loose_sound;
+
 
     public GameObject Strat_1;
     public GameObject Strat_2;
@@ -168,6 +171,8 @@ public class GameManager : MonoBehaviour
 
 
 private void handle_win(){
+
+    int begin_money = player_money;
     
     // DICE
     Dice dice = list_games[0].GetComponent<Dice>();
@@ -196,6 +201,15 @@ private void handle_win(){
         Debug.Log("ouine");
         player_money+= attente.money_earned;
         player_money = Mathf.Max(0, player_money);
+    }
+
+
+    if (player_money>begin_money) {
+        win_sound.Play();
+    }
+    
+    if (player_money<begin_money) {
+        loose_sound.Play();
     }
 
 

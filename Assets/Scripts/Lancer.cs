@@ -14,6 +14,9 @@ public class Lancer : MonoBehaviour
     public bool toggle_mode = false;
     
     public bool is_activated = false;
+
+
+    
     void Start()
     {
     }
