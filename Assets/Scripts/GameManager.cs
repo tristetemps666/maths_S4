@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
 
         switch(carrousel.state){
             case carroussel_state.ready_to_play:
+
                 update_proba_games();
                 update_game_info_proba();
                 enable_buttons();
@@ -127,7 +128,8 @@ public class GameManager : MonoBehaviour
                 if(list_is_finished_games[active_game]){
                     carrousel.state = carroussel_state.start_to_roll;
                     list_is_finished_games[active_game] = false;
-                } 
+                }
+
 
                 break;
 
@@ -184,6 +186,9 @@ private void handle_win(){
     Dice dice = list_games[0].GetComponent<Dice>();
     if(dice.has_just_win){
         player_money += dice.res*dice.win_multiplier;
+        if(list_games[0].GetComponent<Dice>().can_choose_next_game){
+            carrousel.state = carroussel_state.is_choosing_next_game;
+        }
     }
 
 

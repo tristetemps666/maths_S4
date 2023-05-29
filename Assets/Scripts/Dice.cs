@@ -25,8 +25,9 @@ public class Dice : MonoBehaviour
     public bool is_over = false;
 
     bool invoked = false;
+    private bool strat_2_choose = false;
 
-    public bool can_get_coin = false;
+    public bool can_choose_next_game = false;
 
     public TextMeshPro win_factor_text;
     public TextMeshPro dice_test_text;
@@ -65,6 +66,7 @@ public class Dice : MonoBehaviour
 
         if(has_just_win){
             res = dice_proba.rand();
+            if(strat_2_choose && res%2 ==0) can_choose_next_game = true;
             dice_test_text.text = (res*win_multiplier).ToString()+"$";
             dice_sprite_displayed.sprite = sprites_dice[res-1];
             amount_roll = 0;
@@ -106,7 +108,7 @@ public class Dice : MonoBehaviour
 
     public void strat_two(){
         if(!is_running && !has_win)
-            can_get_coin = true;
+            strat_2_choose = true;
     }
 
 
@@ -119,7 +121,8 @@ public class Dice : MonoBehaviour
         has_win = false;
         is_over = false;
         is_running = false;
-        can_get_coin = false;
+        can_choose_next_game = false;
+        strat_2_choose = false;
         res = 0;
         win_multiplier = 10;
         invoked = false;
