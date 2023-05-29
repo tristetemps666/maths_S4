@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyRand;
 
-public enum carroussel_state{ready_to_play,start_to_roll, is_rolling, is_paused, finished_to_roll, is_choosing_next_game};
+public enum carroussel_state{ready_to_play,start_to_roll, is_rolling, is_paused, finished_to_roll, is_choosing_next_game, wait};
 
 public class Carrousel : MonoBehaviour
 {
@@ -27,6 +27,9 @@ public class Carrousel : MonoBehaviour
     public Material conveyor_belt_material;
     public float conveyor_belt_speed = 2.23f;
     public float conveyor_belt_offset = 0f;
+
+    public float wait_before_choose_map = 0.5f;
+    public float wait_amount;
 
 
 
@@ -63,6 +66,8 @@ public class Carrousel : MonoBehaviour
         set_activation_selection_map(false);
 
         setup_games_positions();
+
+        wait_amount = wait_before_choose_map;
     }
 
     // Update is called once per frame
@@ -109,6 +114,14 @@ public class Carrousel : MonoBehaviour
                 next_game = s;
                 state = carroussel_state.is_rolling;
                 reset_selection_map();
+            }
+        }
+
+        if(state == carroussel_state.wait){
+            wait_amount = Mathf.Max(wait_amount-Time.deltaTime, 0f);
+            if(wait_amount==0f){
+                wait_amount = wait_before_choose_map;
+                state = carroussel_state.is_choosing_next_game;
             }
         }
 
