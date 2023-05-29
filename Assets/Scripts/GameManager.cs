@@ -11,6 +11,7 @@ using GameStrat = System.Func<UnityEngine.GameObject,bool>; // functor for strat
 
 public class GameManager : MonoBehaviour
 {
+    public end_game end_game;
     public bool game_is_over = false;
     public int number_of_round = 15;
     public int number_of_round_played = 0;
@@ -72,8 +73,10 @@ public class GameManager : MonoBehaviour
 
     public Camera main_cam;
     public Camera map_cam;
+    public Camera end_cam;
     void Start()
     {
+        end_cam.enabled = false;
         update_round_left_text();
 
         startMenu.SetActive(true);
@@ -112,6 +115,10 @@ public class GameManager : MonoBehaviour
 
         if(game_is_over){
             Debug.Log("fin du jeu :)");
+            main_cam.enabled = false;
+            map_cam.enabled = false;
+            end_cam.enabled = true;
+            
         }
 
         else{
@@ -516,4 +523,5 @@ private void handle_strat_two(){
         round_left_text.text = "Round : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
         round_left_text_map.text = "Round : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
     }
+
 }
