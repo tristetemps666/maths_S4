@@ -166,7 +166,7 @@ public class FileAttente : MonoBehaviour
 
     private void set_lambdas(){
         client_lambda.text = "Client E[x] : "+ new_client_proba.esperance().ToString();
-        payment_lambda.text = "Pay E[x] : " + manage_client_proba.esperance().ToString();
+        payment_lambda.text = "Paie E[x] : " + manage_client_proba.esperance().ToString();
     }
 
     private void process_payement(){

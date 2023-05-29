@@ -391,7 +391,7 @@ private void handle_strat_two(){
         list_strats_names.Add(("x2 (50$)","Pair = choix jeu (50$)")); // DICE
         list_strats_names.Add(("x2 (50$)","+1 (80$)")); // FAKIR
         list_strats_names.Add(("Pile : 75% (100$)","Miser 20$")); // PIECE
-        list_strats_names.Add(("x2 lambda client (50$)","x2 lambda payment (50$)")); // FILE ATTENTE
+        list_strats_names.Add(("x2 lambda client (50$)","x2 lambda paiement (50$)")); // FILE ATTENTE
     }
 
     private void update_buttons_names(){

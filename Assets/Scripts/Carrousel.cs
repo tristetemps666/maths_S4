@@ -81,12 +81,16 @@ public class Carrousel : MonoBehaviour
         active_game = GetComponentInParent<GameManager>().active_game;
         // next_game = Mathf.Min(active_game+1,2);
 
+        
+        choice_text.SetActive(false);
+
 
 
 
         if(state == carroussel_state.start_to_roll){
             choose_next_game();
             state = carroussel_state.is_rolling;
+
         }
 
         GameObject go_next_game = list_games[next_game];
@@ -94,6 +98,8 @@ public class Carrousel : MonoBehaviour
 
         if(state == carroussel_state.is_rolling){
             set_activation_selection_map(false);
+            choice_text.SetActive(false);
+
 
 
             if(Vector3.Distance(go_next_game.transform.position,active_game_transform.position) >= 0.1f){ // am I close ?
