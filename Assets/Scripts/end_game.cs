@@ -97,4 +97,26 @@ public class end_game : MonoBehaviour
     void restart(){
         SceneManager.LoadScene(0);
     }
+
+    void set_text_stats(){
+        void set_text_stats_dice(){
+            string text = "dice :\n nombre de lancers : "+us.roll_number+"\n nombre pour chq faces : "+ to_string(us.amount_foreach_number) + "\n face(s) la plus fréquente : " + to_string(us.most_frequent_number) + "\n nombre moyen : "+ us.average_number;
+        }
+    }
+
+
+
+
+
+    private string to_string(List<int> list){
+        if(list == null) return "null";
+        if(list.Count == 1) return list[0].ToString();
+        else{
+            string a= "{";
+            for(int i=0 ; i<list.Count-1; i++){
+                a += list[i].ToString() + ",";
+            }
+            return a + list[list.Count-1].ToString() +"}";
+        }
+    }
 }
