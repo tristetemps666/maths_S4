@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public int number_of_round_played = 0;
 
     public TextMeshPro round_left_text;
+    public TextMeshPro round_left_text_map;
 
 
     private Ball ball_fakir;
@@ -513,5 +514,6 @@ private void handle_strat_two(){
     }
     void update_round_left_text(){
         round_left_text.text = "Round : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
+        round_left_text_map.text = "Round : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
     }
 }
