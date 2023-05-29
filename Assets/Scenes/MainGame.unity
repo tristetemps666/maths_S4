@@ -816,7 +816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   end_game: {fileID: 242158706}
-  game_is_over: 1
+  game_is_over: 0
   number_of_round: 3
   number_of_round_played: 1
   round_left_text: {fileID: 1651127208}
