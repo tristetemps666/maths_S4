@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         // Time.fixedDeltaTime = 0.1f; // low frequency for physics CASSE LA PHYSIQUE
         // IDEAL => Object qui se simule parfaitement => la balle affichée prend une pose toute les tant
 
-        setup_all_strats(); // 0: DICE / 1 : Fakir / 2 : Piece
+        setup_all_strats(); // 0: DICE / 1 : Fakir / 2 : Piece / 3: Bar
         update_buttons_names();
         setup_activations();
         update_game_info_name();

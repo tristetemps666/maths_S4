@@ -38,19 +38,21 @@ public class Carrousel : MonoBehaviour
     // };
 
 
+
+    // 0: DICE / 1 : Fakir / 2 : Piece / 3: Bar
     
     private float[][] transition_matrix = new float[][] // test
     {
-       new float[] {0f,0f,0f,1f},
-       new float[] {0f,0f,0f,1f},
-       new float[] {0f,0f,0f,1f},
-       new float[] {0.3f,0.3f,0.3f,0f}
+        new float[] {0f,1/3f,1/3f,1/3f},       // Dé
+        new float[] {0.5f,0f,2/6f,1/6f},       // Fakir
+        new float[] {0.5f,2/6f,0f,1/6f},       // Piece
+        new float[] {2/3f,1/6f,1/6f,0f}        // Bar
     };
 
 
 
 
-   // 0: DICE / 1 : Fakir / 2 : Piece
+   // 0: DICE / 1 : Fakir / 2 : Piece / 3: Bar
     void Start()
     {
         list_games = GetComponentInParent<GameManager>().list_games; 
