@@ -10,6 +10,7 @@ public class Map : MonoBehaviour
 
     public List<Sprite> sprites_map;
 
+
     public int active_game = 0;
 
     public SpriteRenderer current_sprite_map;
@@ -20,6 +21,8 @@ public class Map : MonoBehaviour
     {
         list_games_visited = new List<int>(game_manager.list_games.Count);
 
+        
+
     }
 
     // Update is called once per frame
@@ -27,6 +30,7 @@ public class Map : MonoBehaviour
     {
         active_game = game_manager.active_game;
         current_sprite_map.sprite = sprites_map[active_game];
+        
     }
 
 

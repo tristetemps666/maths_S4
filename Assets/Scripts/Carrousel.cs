@@ -24,6 +24,10 @@ public class Carrousel : MonoBehaviour
     public int active_game;
     public int next_game;
 
+    
+    public GameObject choice_text;
+
+
     public Material conveyor_belt_material;
     public float conveyor_belt_speed = 2.23f;
     public float conveyor_belt_offset = 0f;
@@ -63,6 +67,8 @@ public class Carrousel : MonoBehaviour
         set_activation_selection_map(false);
 
         setup_games_positions();
+
+        choice_text.SetActive(false);
     }
 
     // Update is called once per frame
@@ -159,11 +165,14 @@ public class Carrousel : MonoBehaviour
         foreach(var select in selection_map_triggers){
             select.number_selected = -1;
         }
+        choice_text.SetActive(false);
+
     }
 
     void set_activation_selection_map(bool active){
         foreach(var select in selection_map_triggers){
             select.gameObject.SetActive(active);
         }
+        choice_text.SetActive(true);
     }
 }
