@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> list_buttons = new List<GameObject>();
 
 
-    private List<(float,float)> list_proga_games = new List<(float, float)>();
+    private List<(float,float)> list_proba_games = new List<(float, float)>();
 
 
     private Carrousel carrousel;
@@ -310,7 +310,7 @@ private void handle_strat_two(){
             list_is_starting_games.Add(false);
             list_is_finished_games.Add(false);
 
-            list_proga_games.Add((0,0));
+            list_proba_games.Add((0,0));
             list_strat_cost.Add((0,0));
         }
 
@@ -426,10 +426,13 @@ private void handle_strat_two(){
 
     private void update_proba_games(){
         Dice dice = list_games[0].GetComponent<Dice>();
-        list_proga_games[0] = (dice.dice_proba.esperance()*dice.win_multiplier,Mathf.Pow(dice.win_multiplier,2)*dice.dice_proba.variance());
+        list_proba_games[0] = (dice.dice_proba.esperance()*dice.win_multiplier,Mathf.Pow(dice.win_multiplier,2)*dice.dice_proba.variance());
 
         Piece piece = list_games[2].GetComponent<Piece>();
-        list_proga_games[2] = (piece.piece_proba.esperance()*piece.mise*2,Mathf.Pow(piece.mise*2,2)*piece.piece_proba.variance());
+        list_proba_games[2] = (piece.piece_proba.esperance()*piece.mise*2,Mathf.Pow(piece.mise*2,2)*piece.piece_proba.variance());
+
+        FileAttente file = list_games[3].GetComponent<FileAttente>();
+        list_proba_games[3] = (Mathf.Min(1/file.manage_client_proba.esperance(),1/file.new_client_proba.esperance())*2f*20f,0);
     }
 
     public int get_money(){
@@ -466,7 +469,7 @@ private void handle_strat_two(){
 
     void update_game_info_proba(){
         TextMeshPro game_info_proba = GameInfos.GetComponentsInChildren<TextMeshPro>()[1];
-        game_info_proba.text = "E(x) = " + list_proga_games[active_game].Item1.ToString()+ "\nV(X) = "+ list_proga_games[active_game].Item2.ToString();
+        game_info_proba.text = "E(x) = " + list_proba_games[active_game].Item1.ToString()+ "\nV(X) = "+ list_proba_games[active_game].Item2.ToString();
 
     }
 

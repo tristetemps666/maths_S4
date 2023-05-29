@@ -45,6 +45,11 @@ public class Lancer : MonoBehaviour
             button_text.color = Color.black;
             bgrd_button.color = Color.white;
         }
+        if(Input.GetMouseButtonDown(0)){
+            button_text.color = Color.white;
+            bgrd_button.color = Color.black;
+        }
+
         if(Input.GetMouseButtonUp(0)){
             if (toggle_mode){
                 is_activated = true;

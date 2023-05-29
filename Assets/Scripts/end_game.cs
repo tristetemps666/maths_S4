@@ -16,6 +16,10 @@ public class end_game : MonoBehaviour
 
     public Lancer stat_button;
 
+    public Lancer score_button;
+
+    public GameObject stats_page;
+
     public GameObject hearts;
 
     public Sprite full_heart_sprite;
@@ -44,6 +48,8 @@ public class end_game : MonoBehaviour
     public DiscreteUniformStats us = new DiscreteUniformStats(0);
     void Start()
     {
+        stats_page.SetActive(false);
+        metal_text.text = "";
         
     }
 
@@ -53,6 +59,17 @@ public class end_game : MonoBehaviour
         if(restart_button.is_activated){
             Invoke("restart",1f);
         }
+
+        if(stat_button.is_activated){
+            stats_page.SetActive(true);
+        }
+
+        if(score_button.is_activated){
+            stats_page.SetActive(false);
+            stat_button.is_activated = false;
+            score_button.is_activated = false;
+        }
+
         compute_end_game_datas();
         set_hearts_and_metal();
     }
