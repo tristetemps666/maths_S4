@@ -187,7 +187,7 @@ private void handle_win(){
     if(dice.has_just_win){
         player_money += dice.res*dice.win_multiplier;
         if(list_games[0].GetComponent<Dice>().can_choose_next_game){
-            carrousel.state = carroussel_state.is_choosing_next_game;
+            carrousel.state = carroussel_state.wait;
         }
     }
 

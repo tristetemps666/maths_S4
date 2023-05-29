@@ -1281,6 +1281,8 @@ MonoBehaviour:
   conveyor_belt_material: {fileID: 2100000, guid: 17e9a4c5121a18d4a9d6afea55c18adb, type: 2}
   conveyor_belt_speed: 2.23
   conveyor_belt_offset: 0
+  wait_before_choose_map: 1
+  wait_amount: 0
 --- !u!212 &244866727
 SpriteRenderer:
   m_ObjectHideFlags: 0
