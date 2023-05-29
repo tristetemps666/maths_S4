@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 using BERNOULLI;
 using EXPONENTIELLE;
@@ -10,9 +11,18 @@ using DISCRETE_UNIFORM;
 public class end_game : MonoBehaviour
 {
     // Start is called before the first frame update
+    
+    public Lancer restart_button;
+
+    public Lancer stat_button;
+
     public GameObject hearts;
 
     public Sprite full_heart_sprite;
+
+    public TextMeshPro metal_text;
+
+    public string[] names_metal = new string[4] {"","bronze","argent","or"};
     public int player_money = 0;
 
     public TextMeshPro player_money_text;
@@ -40,8 +50,11 @@ public class end_game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(restart_button.is_activated){
+            Invoke("restart",1f);
+        }
         compute_end_game_datas();
-        set_hearts();
+        set_hearts_and_metal();
     }
 
 
@@ -54,12 +67,17 @@ public class end_game : MonoBehaviour
 
     }
 
-    void set_hearts(){
+    void set_hearts_and_metal(){
         int number_of_full_hearts = (int)Mathf.Floor(Mathf.Clamp(player_money/1500f,0f,1f)*3f);
+        metal_text.text = names_metal[number_of_full_hearts];
         
         SpriteRenderer[] list_hearts = hearts.GetComponentsInChildren<SpriteRenderer>();
         for(int i = 0; i<number_of_full_hearts; i++){
             list_hearts[i].sprite = full_heart_sprite;
         }
+    }
+
+    void restart(){
+        SceneManager.LoadScene(0);
     }
 }
