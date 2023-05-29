@@ -520,8 +520,8 @@ private void handle_strat_two(){
         update_round_left_text();
     }
     void update_round_left_text(){
-        round_left_text.text = "Round : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
-        round_left_text_map.text = "Round : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
+        round_left_text.text = "Manche : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
+        round_left_text_map.text = "Manche : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
     }
 
 }
