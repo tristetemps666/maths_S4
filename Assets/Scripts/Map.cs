@@ -8,16 +8,16 @@ public class Map : MonoBehaviour
 
     public List<int> list_games_visited = new List<int>();
 
+    public List<Sprite> sprites_map;
+
     public int active_game = 0;
 
-    public GameObject diamond;
-    public float diamond_height;
+    public SpriteRenderer current_sprite_map;
 
     public List<GameObject> list_game_points;
     // Start is called before the first frame update
     void Start()
     {
-        set_diamond_position();
         list_games_visited = new List<int>(game_manager.list_games.Count);
 
     }
@@ -26,11 +26,8 @@ public class Map : MonoBehaviour
     void Update()
     {
         active_game = game_manager.active_game;
-
-        set_diamond_position();
+        current_sprite_map.sprite = sprites_map[active_game];
     }
 
-    void set_diamond_position(){
-        diamond.transform.position = list_game_points[active_game].transform.position + Vector3.up*diamond_height;
-    }
+
 }
