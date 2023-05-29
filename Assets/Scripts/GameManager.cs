@@ -143,21 +143,27 @@ public class GameManager : MonoBehaviour
                 break;
 
             case carroussel_state.finished_to_roll:
-                    carrousel.state = carroussel_state.ready_to_play;
-                    has_choose_strat_1 = false;
-                    has_choose_strat_2 = false;
-                    strat_1_used = false;
-                    strat_2_used = false;
+                carrousel.state = carroussel_state.ready_to_play;
+                has_choose_strat_1 = false;
+                has_choose_strat_2 = false;
+                strat_1_used = false;
+                strat_2_used = false;
 
-                    reset_active_game();
-                    list_games[active_game].SetActive(false);
+                reset_active_game();
+                list_games[active_game].SetActive(false);
 
-                    active_game = carrousel.next_game;
-                    update_buttons_names();
-                    update_game_info_name();
-                    update_proba_games();
-                    update_game_info_proba();
+                active_game = carrousel.next_game;
+                update_buttons_names();
+                update_game_info_name();
+                update_proba_games();
+                update_game_info_proba();
                 break;
+
+            case carroussel_state.is_choosing_next_game:
+                set_camera(false);
+
+                break;
+
         }
 
 
