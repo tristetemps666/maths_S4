@@ -815,7 +815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f170d953c660d45811e49f43ce5f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_game: {fileID: 242158706}
+  end_game_obj: {fileID: 242158706}
   game_is_over: 0
   number_of_round: 3
   number_of_round_played: 1
@@ -1575,18 +1575,32 @@ MonoBehaviour:
   stats_page: {fileID: 1016921505}
   hearts: {fileID: 1584440062}
   full_heart_sprite: {fileID: 21300000, guid: cc4669ae52e1f4442ab786fab97adab3, type: 3}
-  metal_text: {fileID: 0}
+  metal_text: {fileID: 1876371066}
+  stats_text: {fileID: 2086926049}
   names_metal:
   - 
   - bronze
   - argent
   - or
-  player_money: 0
+  names_games:
+  - de
+  - fakir
+  - piece
+  - bar
+  player_money: 200
   player_money_text: {fileID: 932801458}
   start_bar_money: {fileID: 749921641}
   list_count_games_played: 00000000000000000000000000000000
+  list_gain: 00000000000000000000000000000000
+  list_gain_moyen:
+  - 0
+  - 0
+  - 0
+  - 0
+  max_money: 0
   max_money_earned: 0
-  int_max_money_lost: 0
+  max_money_lost: 0
+  min_money: 200
 --- !u!1 &244866724
 GameObject:
   m_ObjectHideFlags: 0
@@ -8038,7 +8052,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004257588}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &2004257591
 Camera:
   m_ObjectHideFlags: 0
@@ -8342,7 +8356,7 @@ GameObject:
   - component: {fileID: 2086926050}
   - component: {fileID: 2086926049}
   m_Layer: 0
-  m_Name: "d\xE9 stats"
+  m_Name: stat text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8388,7 +8402,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'de :'
+  m_text: "argent max :\nargent min :\n\nmeilleur gain : \npire gain :\ngain moyen
+    :\n\njeu le plus gagnant :\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed93715f8136d4d4b81d1ae682c91d23, type: 2}
   m_sharedMaterial: {fileID: 9040581561301286728, guid: ed93715f8136d4d4b81d1ae682c91d23, type: 2}
@@ -8415,15 +8430,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7
-  m_fontSizeBase: 7
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -8451,7 +8466,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -0.028421402, z: 0.9834633, w: 0.060887575}
+  m_margin: {x: 0, y: -0.028421402, z: -2.2296467, w: -3.96704}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
