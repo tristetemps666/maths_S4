@@ -79,22 +79,18 @@ public class end_game : MonoBehaviour
             stat_button.is_activated = false;
             score_button.is_activated = false;
         }
-
-        compute_end_game_datas();
-        set_hearts_and_metal();
     }
 
 
-    void compute_end_game_datas(){
+    public void compute_end_game_datas(){
         player_money_text.text = player_money.ToString() + " $";
 
         ratio_money = Mathf.Clamp(player_money/2000f,0f,1f);
         start_bar_money.localScale = new Vector3(ratio_money,start_bar_money.localScale.y,1f);
-
-
     }
 
-    void set_hearts_and_metal(){
+    public void set_hearts_and_metal(){
+
         int number_of_full_hearts = (int)Mathf.Floor(Mathf.Clamp(player_money/1500f,0f,1f)*3f);
         metal_text.text = names_metal[number_of_full_hearts];
         
@@ -102,6 +98,7 @@ public class end_game : MonoBehaviour
         for(int i = 0; i<number_of_full_hearts; i++){
             list_hearts[i].sprite = full_heart_sprite;
         }
+        
     }
 
     void restart(){

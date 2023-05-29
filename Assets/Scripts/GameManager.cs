@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
         }
 
         if(game_is_over){
+            end_game_obj.set_hearts_and_metal();
+            end_game_obj.compute_end_game_datas();
             Debug.Log("fin du jeu :)");
             main_cam.enabled = false;
             map_cam.enabled = false;
