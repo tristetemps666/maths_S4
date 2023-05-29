@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         ball_fakir = GetComponentInChildren<Ball>();
         carrousel = GetComponentInChildren<Carrousel>();
 
-        Application.targetFrameRate = 16;
+        // Application.targetFrameRate = 16;
         // Time.fixedDeltaTime = 0.1f; // low frequency for physics CASSE LA PHYSIQUE
         // IDEAL => Object qui se simule parfaitement => la balle affichée prend une pose toute les tant
 
@@ -535,8 +535,8 @@ private void handle_strat_two(){
         update_round_left_text();
     }
     void update_round_left_text(){
-        round_left_text.text = "Round : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
-        round_left_text_map.text = "Round : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
+        round_left_text.text = "Manche : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
+        round_left_text_map.text = "Manche : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
     }
 
 }
