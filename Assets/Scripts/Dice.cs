@@ -66,7 +66,7 @@ public class Dice : MonoBehaviour
 
         if(has_just_win){
             res = dice_proba.rand();
-            if(strat_2_choose && res%2 ==0) can_choose_next_game = true;
+            if(strat_2_choose && res > 2) can_choose_next_game = true;
             dice_test_text.text = (res*win_multiplier).ToString()+"$";
             dice_sprite_displayed.sprite = sprites_dice[res-1];
             amount_roll = 0;

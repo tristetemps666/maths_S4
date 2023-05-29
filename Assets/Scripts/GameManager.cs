@@ -11,6 +11,12 @@ using GameStrat = System.Func<UnityEngine.GameObject,bool>; // functor for strat
 
 public class GameManager : MonoBehaviour
 {
+    public bool game_is_over = false;
+    public int number_of_round = 15;
+    public int number_of_round_played = 0;
+
+    public TextMeshPro round_left_text;
+
 
     private Ball ball_fakir;
     private Money money_display;
@@ -67,6 +73,9 @@ public class GameManager : MonoBehaviour
     public Camera map_cam;
     void Start()
     {
+        update_round_left_text();
+
+        startMenu.SetActive(true);
         strat_1_script = Strat_1.GetComponent<Lancer>();
         strat_2_script = Strat_2.GetComponent<Lancer>();
         money_display = GetComponentInChildren<Money>();
@@ -100,72 +109,83 @@ public class GameManager : MonoBehaviour
             startMenu.SetActive(false);
         }
 
-        switch(carrousel.state){
-            case carroussel_state.ready_to_play:
+        if(game_is_over){
+            Debug.Log("fin du jeu :)");
+        }
 
-                update_proba_games();
-                update_game_info_proba();
-                enable_buttons();
+        else{
 
-                update_list_is_starting();
-                update_list_is_finished();
+            switch(carrousel.state){
+                case carroussel_state.ready_to_play:
 
-                if(list_is_finished_games[active_game]){
-                    strat_1_script.is_activated = false;
-                    strat_2_script.is_activated = false;
-                }
+                    update_proba_games();
+                    update_game_info_proba();
+                    enable_buttons();
 
-                handle_win();
+                    update_list_is_starting();
+                    update_list_is_finished();
 
-                money_display.set_money(player_money);
+                    if(list_is_finished_games[active_game]){
+                        strat_1_script.is_activated = false;
+                        strat_2_script.is_activated = false;
+                    }
 
-                handle_strat_one();
-                handle_strat_two();
+                    handle_win();
+                   
+                    money_display.set_money(player_money);
 
-                has_choose_strat_1 = strat_1_script.is_launched;
-                has_choose_strat_2 = strat_2_script.is_launched;
+                    handle_strat_one();
+                    handle_strat_two();
 
-                if(list_is_finished_games[active_game]){
-                    carrousel.state = carroussel_state.start_to_roll;
-                    list_is_finished_games[active_game] = false;
-                }
+                    has_choose_strat_1 = strat_1_script.is_launched;
+                    has_choose_strat_2 = strat_2_script.is_launched;
+
+                    if(list_is_finished_games[active_game]){
+                        if(number_of_round == number_of_round_played) game_is_over = true;
+                        else{
+                            carrousel.state = carroussel_state.start_to_roll;
+                            list_is_finished_games[active_game] = false;
+                        }
+                    }
+
+                    break;
 
 
-                break;
+                case carroussel_state.is_rolling:
+                    disable_buttons();
+                    list_games[carrousel.next_game].SetActive(true);
 
+                    break;
 
-            case carroussel_state.is_rolling:
-                disable_buttons();
-                list_games[carrousel.next_game].SetActive(true);
+                case carroussel_state.is_paused:
+                    disable_buttons();
+                    break;
 
-                break;
+                case carroussel_state.finished_to_roll:
+                    carrousel.state = carroussel_state.ready_to_play;
+                    has_choose_strat_1 = false;
+                    has_choose_strat_2 = false;
+                    strat_1_used = false;
+                    strat_2_used = false;
 
-            case carroussel_state.is_paused:
-                disable_buttons();
-                break;
+                    increase_number_of_round();
 
-            case carroussel_state.finished_to_roll:
-                carrousel.state = carroussel_state.ready_to_play;
-                has_choose_strat_1 = false;
-                has_choose_strat_2 = false;
-                strat_1_used = false;
-                strat_2_used = false;
+                    reset_active_game();
+                    list_games[active_game].SetActive(false);
 
-                reset_active_game();
-                list_games[active_game].SetActive(false);
+                    active_game = carrousel.next_game;
+                    update_buttons_names();
+                    update_game_info_name();
+                    update_proba_games();
+                    update_game_info_proba();
+                    break;
 
-                active_game = carrousel.next_game;
-                update_buttons_names();
-                update_game_info_name();
-                update_proba_games();
-                update_game_info_proba();
-                break;
+                case carroussel_state.is_choosing_next_game:
+                    set_camera(false);
 
-            case carroussel_state.is_choosing_next_game:
-                set_camera(false);
+                    break;
 
-                break;
-
+            }
         }
 
 
@@ -222,9 +242,6 @@ private void handle_win(){
     if (player_money<begin_money) {
         loose_sound.Play();
     }
-
-
-
 }
 
 private void disable_buttons(){
@@ -388,7 +405,7 @@ private void handle_strat_two(){
     }
 
     private void setup_list_names(){
-        list_strats_names.Add(("x2 (50$)","Pair = choix jeu (50$)")); // DICE
+        list_strats_names.Add(("x2 (50$)",">2 : choix jeu (50$)")); // DICE
         list_strats_names.Add(("x2 (50$)","+1 (80$)")); // FAKIR
         list_strats_names.Add(("Pile : 75% (100$)","Miser 20$")); // PIECE
         list_strats_names.Add(("x2 lambda client (50$)","x2 lambda paiement (50$)")); // FILE ATTENTE
@@ -486,5 +503,15 @@ private void handle_strat_two(){
                 file.reset();
                 break;
         }
+    }
+
+
+
+    void increase_number_of_round(){
+        number_of_round_played++;
+        update_round_left_text();
+    }
+    void update_round_left_text(){
+        round_left_text.text = "Round : "+number_of_round_played.ToString() + " / " + number_of_round.ToString();
     }
 }

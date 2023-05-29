@@ -173,7 +173,9 @@ public class FileAttente : MonoBehaviour
         Debug.Log("leaving : " +list_clients_leaving.Count);
         Debug.Log("queue : " +queue_clients.Count);
 
-        GameObject over_client =queue_clients.Dequeue();
+        if(queue_clients.Count ==0) return;        
+        GameObject over_client;
+        over_client = queue_clients.Dequeue();
         list_clients_leaving.Add(over_client);
         money_earned+=20;
         text_money_earn.text = money_earned.ToString() +" $"; 
