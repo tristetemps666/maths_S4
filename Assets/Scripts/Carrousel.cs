@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyRand;
 
-public enum carroussel_state{ready_to_play,start_to_roll, is_rolling, is_paused, finished_to_roll};
+public enum carroussel_state{ready_to_play,start_to_roll, is_rolling, is_paused, finished_to_roll, is_choosing_next_game};
 
 public class Carrousel : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public selection_next_map[] selection_map_triggers;
     public carroussel_state state = carroussel_state.ready_to_play;
 
     public Transform active_game_transform;
@@ -58,6 +60,8 @@ public class Carrousel : MonoBehaviour
         list_games = GetComponentInParent<GameManager>().list_games; 
         active_game = GetComponentInParent<GameManager>().active_game;
 
+        set_activation_selection_map(false);
+
         setup_games_positions();
     }
 
@@ -79,6 +83,7 @@ public class Carrousel : MonoBehaviour
         GameObject go_active_game = list_games[active_game];
 
         if(state == carroussel_state.is_rolling){
+            set_activation_selection_map(false);
 
 
             if(Vector3.Distance(go_next_game.transform.position,active_game_transform.position) >= 0.1f){ // am I close ?
@@ -95,7 +100,17 @@ public class Carrousel : MonoBehaviour
 
 
             }
-        }   
+        }
+
+        if(state == carroussel_state.is_choosing_next_game){
+            set_activation_selection_map(true);
+            int s = get_selection_map();
+            if(s != -1){ // the play has selected a map
+                next_game = s;
+                state = carroussel_state.is_rolling;
+                reset_selection_map();
+            }
+        }
 
         
     }
@@ -133,4 +148,22 @@ public class Carrousel : MonoBehaviour
     }
 
 
+    int get_selection_map(){
+        foreach(var select in selection_map_triggers){
+            if(select.number_selected != -1) return select.number_to_return;
+        }
+        return -1;
+    }
+
+    void reset_selection_map(){
+        foreach(var select in selection_map_triggers){
+            select.number_selected = -1;
+        }
+    }
+
+    void set_activation_selection_map(bool active){
+        foreach(var select in selection_map_triggers){
+            select.gameObject.SetActive(active);
+        }
+    }
 }
