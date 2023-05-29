@@ -11,7 +11,7 @@ using GameStrat = System.Func<UnityEngine.GameObject,bool>; // functor for strat
 
 public class GameManager : MonoBehaviour
 {
-    public end_game end_game;
+    public end_game end_game_obj;
     public bool game_is_over = false;
     public int number_of_round = 15;
     public int number_of_round_played = 0;
@@ -139,6 +139,8 @@ public class GameManager : MonoBehaviour
                     }
 
                     handle_win();
+
+                    Debug.Log("fini ? : " +  list_is_finished_games[active_game]);
                    
                     money_display.set_money(player_money);
 
@@ -214,7 +216,7 @@ private void handle_win(){
     Dice dice = list_games[0].GetComponent<Dice>();
     if(dice.has_just_win){
         player_money += dice.res*dice.win_multiplier;
-        if(list_games[0].GetComponent<Dice>().can_choose_next_game){
+        if(list_games[0].GetComponent<Dice>().can_choose_next_game && number_of_round_played < number_of_round){
             carrousel.state = carroussel_state.wait;
         }
     }
@@ -243,13 +245,23 @@ private void handle_win(){
     }
 
 
-    if (player_money>begin_money) {
+    int gain = player_money-begin_money;
+
+    if (gain>0) {
+        if(end_game_obj.max_money_earned<gain) end_game_obj.max_money_earned = gain;
         win_sound.Play();
     }
     
-    if (player_money<begin_money) {
+    if (gain<0) {
+        if(end_game_obj.max_money_lost<gain) end_game_obj.max_money_lost = gain;
         loose_sound.Play();
     }
+
+    if(end_game_obj.max_money <player_money) end_game_obj.max_money = player_money;
+    if(end_game_obj.min_money > player_money) end_game_obj.min_money = player_money;
+
+    end_game_obj.list_gain[active_game]+=gain;
+    end_game_obj.player_money = player_money;
 }
 
 private void disable_buttons(){
