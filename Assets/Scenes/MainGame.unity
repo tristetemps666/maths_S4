@@ -167,7 +167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923641164077001980, guid: ce746920f2697954282f411e386933f8, type: 3}
       propertyPath: m_Name
-      value: File d'attente
+      value: le bar
       objectReference: {fileID: 0}
     - target: {fileID: 5311892645399530321, guid: ce746920f2697954282f411e386933f8, type: 3}
       propertyPath: m_RootOrder
@@ -817,7 +817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   end_game_obj: {fileID: 242158706}
   game_is_over: 0
-  number_of_round: 3
+  number_of_round: 15
   number_of_round_played: 1
   round_left_text: {fileID: 1651127208}
   round_left_text_map: {fileID: 1525722100}
@@ -1675,7 +1675,7 @@ MonoBehaviour:
   next_game: 0
   choice_text: {fileID: 1874821240}
   conveyor_belt_material: {fileID: 2100000, guid: 17e9a4c5121a18d4a9d6afea55c18adb, type: 2}
-  conveyor_belt_speed: 2.23
+  conveyor_belt_speed: 0.24
   conveyor_belt_offset: 0
   wait_before_choose_map: 1
   wait_amount: 0
@@ -5911,7 +5911,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Round : 1/15'
+  m_text: 'manche : 15/15'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed93715f8136d4d4b81d1ae682c91d23, type: 2}
   m_sharedMaterial: {fileID: 9040581561301286728, guid: ed93715f8136d4d4b81d1ae682c91d23, type: 2}
@@ -5938,8 +5938,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11
-  m_fontSizeBase: 11
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6042,7 +6042,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.89, y: 0.12}
+  m_AnchoredPosition: {x: -6.93, y: 0.12}
   m_SizeDelta: {x: 2.8036, y: 0.9401}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1535223446 stripped
@@ -6591,7 +6591,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -0.81360245, w: 0.060887575}
+  m_margin: {x: 0, y: 0, z: -1.5090704, w: 0.060887575}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0

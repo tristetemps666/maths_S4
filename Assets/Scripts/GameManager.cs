@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         ball_fakir = GetComponentInChildren<Ball>();
         carrousel = GetComponentInChildren<Carrousel>();
 
-        Application.targetFrameRate = 16;
+        // Application.targetFrameRate = 16;
         // Time.fixedDeltaTime = 0.1f; // low frequency for physics CASSE LA PHYSIQUE
         // IDEAL => Object qui se simule parfaitement => la balle affichée prend une pose toute les tant
 
@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
         }
 
         if(game_is_over){
+            end_game_obj.set_hearts_and_metal();
+            end_game_obj.compute_end_game_datas();
             Debug.Log("fin du jeu :)");
             main_cam.enabled = false;
             map_cam.enabled = false;
